@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="SpotifyEndpoint" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SpotifyStreamsNotice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{title} has reached {count} streams on Spotify!  (The current daily average is {daily}.)  {link}</Value>
+    </Setting>
+    <Setting Name="TwitterUserToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TwitterUserSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="YoutubeApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="YoutubeViewsNotice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{title} has reached {count} views on YouTube!  (The current daily average is {daily}.)  {link}</Value>
+    </Setting>
+    <Setting Name="YoutubeLikesNotice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{title} has reached {count} likes on YouTube!  (The current daily average is {daily}.)  {link}</Value>
+    </Setting>
+    <Setting Name="TwitterAppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TwitterAppSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
