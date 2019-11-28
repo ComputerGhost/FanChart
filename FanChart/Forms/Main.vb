@@ -25,6 +25,18 @@ Public Class Main
         Next
     End Sub
 
+    Private Sub monitor_ItemUpdated(monitoredItem As MonitoredItem) Handles monitor.ItemUpdated
+        For Each listItem As ListViewItem In lstSources.Items
+            If CType(listItem.Tag, MonitoredItem).UniqueKey = monitoredItem.UniqueKey Then
+                listItem.SubItems(colCount.Index).Text = monitoredItem.LatestCount
+                listItem.SubItems(colDaily.Index).Text = monitoredItem.DailyAverage
+                listItem.SubItems(colUpdated.Index).Text = monitoredItem.LastUpdated
+                listItem.Tag = monitoredItem
+                Exit For
+            End If
+        Next
+    End Sub
+
     Private Function MonitoredItemToListViewItem(monitoredItem As MonitoredItem) As ListViewItem
         Dim listItem As New ListViewItem({
             monitoredItem.SourceSite & ":" & monitoredItem.Identifier,

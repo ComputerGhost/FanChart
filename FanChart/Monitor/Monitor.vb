@@ -54,13 +54,13 @@ Public Class Monitor
         Dim latestCountEnglish As String = latestCount
         Dim digitCount = Math.Floor(Math.Log10(latestCount) + 1)
         If digitCount <= 3 Then
-            latestCountEnglish = latestCount
+            latestCountEnglish = truncatedNewCount
         ElseIf digitCount <= 6 Then
-            latestCountEnglish = String.Format("{0} thousand", latestCount / 1000)
+            latestCountEnglish = String.Format("{0} thousand", truncatedNewCount / 1000)
         ElseIf digitCount <= 9 Then
-            latestCountEnglish = String.Format("{0} million", latestCount / 1000000)
+            latestCountEnglish = String.Format("{0} million", truncatedNewCount / 1000000)
         ElseIf digitCount <= 12 Then
-            latestCountEnglish = String.Format("{0} billion", latestCount / 1000000000)
+            latestCountEnglish = String.Format("{0} billion", truncatedNewCount / 1000000000)
         End If
 
         ' Send tweet
