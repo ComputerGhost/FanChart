@@ -26,21 +26,22 @@ Public Class Monitor
         End If
     End Sub
 
-    Sub Update(key As String, latestCount As Integer, tweetTemplate As String)
+    Sub Update(key As String, latestCount As Integer)
         If Not Items.ContainsKey(key) Then Exit Sub
         Dim item = Items(key)
 
-        Const DIGITS = 2
-
-        ' Skip if updated today or 2 significant digits are the same
-        Dim truncatedNewCount As Integer
-        If item.LastUpdated.HasValue And item.LatestCount.HasValue Then
-            If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 24 Then Exit Sub
-            Dim scale = Math.Pow(10, Math.Floor(Math.Log10(latestCount)) + 1 - DIGITS)
-            truncatedNewCount = scale * Math.Round(latestCount / scale, DIGITS)
-            Dim truncatedOldCount = CInt(scale * Math.Round(item.LatestCount.Value / scale, DIGITS))
-            If Math.Abs(truncatedOldCount - truncatedNewCount) < 0.5 Then Exit Sub ' (a-b)<e for double errors
+        ' Skip if already updated within 24h
+        If item.LastUpdated.HasValue Then
+            If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 24 Then
+                Exit Sub
+            End If
         End If
+
+        ' Skip if no significant change in latest count
+        Dim oldLatestCount = item.EnglishLatestCount
+        item.LatestCount = latestCount
+        Dim newLatestCount = item.EnglishLatestCount
+        If oldLatestCount = newLatestCount Then Exit Sub
 
         ' Calculate the daily average
         Dim dailyAverage As Double? = Nothing
@@ -50,33 +51,18 @@ Public Class Monitor
             dailyAverage = countDiff / updatedDiff
         End If
 
-        ' Get plain English version of latestCount
-        Dim latestCountEnglish As String = latestCount
-        Dim digitCount = Math.Floor(Math.Log10(latestCount) + 1)
-        If digitCount <= 3 Then
-            latestCountEnglish = truncatedNewCount
-        ElseIf digitCount <= 6 Then
-            latestCountEnglish = String.Format("{0} thousand", truncatedNewCount / 1000)
-        ElseIf digitCount <= 9 Then
-            latestCountEnglish = String.Format("{0} million", truncatedNewCount / 1000000)
-        ElseIf digitCount <= 12 Then
-            latestCountEnglish = String.Format("{0} billion", truncatedNewCount / 1000000000)
-        End If
-
-        ' Send tweet
-        Dim twitter As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
-        twitter.Tweet(tweetTemplate _
-            .Replace("{title}", item.Title) _
-            .Replace("{count}", latestCountEnglish) _
-            .Replace("{daily}", If(dailyAverage, "")) _
-            .Replace("{link}", ""))
-
         ' Update in our list
         item.DailyAverage = dailyAverage
         item.LastUpdated = Now
         item.LatestCount = latestCount
         Items(key) = item
         RaiseEvent ItemUpdated(item)
+
+        ' Send tweet, if it's not our first time
+        If item.LastUpdated.HasValue Then
+            Dim twitter As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
+            twitter.Tweet(item.GetTweetText())
+        End If
 
     End Sub
 
@@ -114,7 +100,7 @@ Public Class Monitor
 
             For Each track In tracks
                 Dim key = String.Format("Spotify:{0}:{1}:{2}:playcount", albumId, track.disc, track.number)
-                Update(key, track.playcount, My.Settings.SpotifyStreamsNotice)
+                Update(key, track.playcount)
             Next
         Next
 
@@ -124,8 +110,8 @@ Public Class Monitor
             Dim stats = TryGetYoutubeVideoStats(youtube, videoId)
             If stats Is Nothing Then Continue For
 
-            Update(String.Format("YouTube:{0}:Likes", videoId), stats.LikeCount, My.Settings.YoutubeLikesNotice)
-            Update(String.Format("YouTube:{0}:Views", videoId), stats.ViewCount, My.Settings.YoutubeViewsNotice)
+            Update(String.Format("YouTube:{0}:Likes", videoId), stats.LikeCount)
+            Update(String.Format("YouTube:{0}:Views", videoId), stats.ViewCount)
         Next
     End Sub
 
