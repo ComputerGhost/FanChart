@@ -98,7 +98,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Monitor\Monitor.vb" />
+    <Compile Include="Monitor\Engine.vb" />
     <Compile Include="Monitor\MonitoredItem.vb" />
     <Compile Include="Forms\AddSpotifyAlbum.Designer.vb">
       <DependentUpon>AddSpotifyAlbum.vb</DependentUpon>

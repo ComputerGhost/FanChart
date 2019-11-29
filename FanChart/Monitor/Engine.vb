@@ -3,7 +3,7 @@ Imports Google.Apis.Services
 Imports Google.Apis.YouTube.v3
 Imports Newtonsoft.Json
 
-Public Class Monitor
+Public Class Engine
 
     Property Items As New Dictionary(Of String, MonitoredItem)
 

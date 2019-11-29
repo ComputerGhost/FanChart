@@ -2,9 +2,9 @@
 
 Public Class AddSpotifyAlbum
 
-    Private monitor As Monitor
+    Private monitor As Engine
 
-    Overloads Sub ShowDialog(monitor As Monitor)
+    Overloads Sub ShowDialog(monitor As Engine)
         Me.monitor = monitor
         MyBase.ShowDialog()
     End Sub

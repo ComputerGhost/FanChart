@@ -2,7 +2,7 @@
 
 Public Class Main
 
-    Private WithEvents monitor As New Monitor
+    Private WithEvents monitor As New Engine
 
     Private Sub monitor_ItemAdded(monitoredItem As MonitoredItem) Handles monitor.ItemAdded
         lstSources.Items.Add(MonitoredItemToListViewItem(monitoredItem))
