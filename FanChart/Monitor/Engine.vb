@@ -27,38 +27,40 @@ Public Class Engine
     End Sub
 
     Sub Update(key As String, latestCount As Integer)
-        If Not Items.ContainsKey(key) Then Exit Sub
-        Dim item = Items(key)
+        Static threadLock As New Object
+        SyncLock threadLock
+            If Not Items.ContainsKey(key) Then Exit Sub
+            Dim item = Items(key)
 
-        ' Skip if no significant change in latest count
-        Dim oldLatestCount = item.EnglishLatestCount
-        item.LatestCount = latestCount
-        Dim newLatestCount = item.EnglishLatestCount
-        If oldLatestCount = newLatestCount Then Exit Sub
+            ' Skip if no significant change in latest count
+            Dim oldLatestCount = item.EnglishLatestCount
+            item.LatestCount = latestCount
+            Dim newLatestCount = item.EnglishLatestCount
+            If oldLatestCount = newLatestCount Then Exit Sub
 
-        ' Calculate the daily average
-        Dim dailyAverage As Double? = Nothing
-        If item.LatestCount.HasValue And item.LastUpdated.HasValue Then
-            Dim updatedDiff = DateDiff(DateInterval.Hour, Now, item.LastUpdated.Value) / 24
-            Dim countDiff = latestCount - item.LatestCount.Value
-            dailyAverage = countDiff / updatedDiff
-        End If
+            ' Calculate the daily average
+            Dim dailyAverage As Double? = Nothing
+            If item.LatestCount.HasValue And item.LastUpdated.HasValue Then
+                Dim updatedDiff = DateDiff(DateInterval.Hour, Now, item.LastUpdated.Value) / 24
+                Dim countDiff = latestCount - item.LatestCount.Value
+                dailyAverage = countDiff / updatedDiff
+            End If
 
-        ' Update in our list
-        item.DailyAverage = dailyAverage
-        item.LastUpdated = Now
-        item.LatestCount = latestCount
-        Items(key) = item
+            ' Update in our list
+            item.DailyAverage = dailyAverage
+            item.LastUpdated = Now
+            item.LatestCount = latestCount
+            Items(key) = item
 
-        ' Send tweet, if it's not our first time
-        If item.LastUpdated.HasValue Then
-            Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
-            api.Tweet(item.GetTweetText())
-        End If
+            ' Send tweet, if it's not our first time
+            If item.LastUpdated.HasValue Then
+                Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
+                api.Tweet(item.GetTweetText())
+            End If
 
-        ' Now raise the update event, after we've had chance to error out
-        RaiseEvent ItemUpdated(item)
-
+            ' Now raise the update event, after we've had chance to error out
+            RaiseEvent ItemUpdated(item)
+        End SyncLock
     End Sub
 
     Sub Load(filename As String)
