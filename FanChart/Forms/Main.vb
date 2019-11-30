@@ -62,7 +62,7 @@ Public Class Main
     End Sub
 
     Private Sub RunNowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunNowToolStripMenuItem.Click
-        monitor.Run()
+        monitor.RunAsync()
     End Sub
 
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click

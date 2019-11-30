@@ -5,6 +5,8 @@ Imports Newtonsoft.Json
 
 Public Class Engine
 
+    Property Tweeter As New Tweeter
+
     Property Items As New Dictionary(Of String, MonitoredItem)
 
     Event ItemAdded(monitoredItem As MonitoredItem)
@@ -30,13 +32,6 @@ Public Class Engine
         If Not Items.ContainsKey(key) Then Exit Sub
         Dim item = Items(key)
 
-        ' Skip if already updated within 24h
-        If item.LastUpdated.HasValue Then
-            If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 24 Then
-                Exit Sub
-            End If
-        End If
-
         ' Skip if no significant change in latest count
         Dim oldLatestCount = item.EnglishLatestCount
         item.LatestCount = latestCount
@@ -56,13 +51,15 @@ Public Class Engine
         item.LastUpdated = Now
         item.LatestCount = latestCount
         Items(key) = item
-        RaiseEvent ItemUpdated(item)
 
         ' Send tweet, if it's not our first time
         If item.LastUpdated.HasValue Then
-            Dim twitter As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
-            twitter.Tweet(item.GetTweetText())
+            Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
+            api.Tweet(item.GetTweetText())
         End If
+
+        ' Now raise the update event, after we've had chance to error out
+        RaiseEvent ItemUpdated(item)
 
     End Sub
 
@@ -80,60 +77,62 @@ Public Class Engine
         End Using
     End Sub
 
-    Sub Run()
-        Dim spotifyAlbums As New HashSet(Of String)
-        Dim youtubeVideos As New HashSet(Of String)
-        For Each item In Items
-            Dim keyParts = item.Key.Split(":"c) ' source:itemId:[number:]property
-            Select Case keyParts(0)
+    Async Function RunAsync() As Task
+
+        ' Since our list will be changing, go ahead and copy the keys
+        Dim spotifyAlbumIds As New HashSet(Of String)
+        Dim youtubeVideoIds As New HashSet(Of String)
+        For Each item In Items.Values
+
+            ' Skip if already updated within 24h
+            If item.LastUpdated.HasValue Then
+                If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 24 Then
+                    Continue For
+                End If
+            End If
+
+            ' Get the info
+            Select Case item.SourceSite
                 Case "Spotify"
-                    spotifyAlbums.Add(keyParts(1))
+                    spotifyAlbumIds.Add(item.Identifier.Split(":"c)(0))
                 Case "YouTube"
-                    youtubeVideos.Add(keyParts(1))
+                    youtubeVideoIds.Add(item.Identifier)
             End Select
         Next
 
-        Dim spotify As New Spotify.API(My.Settings.SpotifyEndpoint)
-        For Each albumId In spotifyAlbums
-            Dim tracks = TryGetSpotifyAlbumPlayCount(spotify, albumId)
-            If tracks Is Nothing Then Continue For
+        ' Now we actually run it
+        Dim spotifyTask = RunSpotifyAsync(spotifyAlbumIds)
+        Dim youtubeTask = RunYouTubeAsync(youtubeVideoIds)
+        Await Task.WhenAll(spotifyTask, youtubeTask)
+    End Function
 
-            For Each track In tracks
+    Private Async Function RunSpotifyAsync(albumIds As HashSet(Of String)) As Task
+        Dim service As New Spotify.API(My.Settings.SpotifyEndpoint)
+        For Each albumId In albumIds
+            For Each track In service.GetAlbumPlayCount(albumId)
                 Dim key = String.Format("Spotify:{0}:{1}:{2}:playcount", albumId, track.disc, track.number)
                 Update(key, track.playcount)
             Next
+            Await Task.Delay(1000)
         Next
-
-        Dim youtube As New YouTubeService(New BaseClientService.Initializer With {
-            .ApiKey = My.Settings.YoutubeApiKey})
-        For Each videoId In youtubeVideos
-            Dim stats = TryGetYoutubeVideoStats(youtube, videoId)
-            If stats Is Nothing Then Continue For
-
-            Update(String.Format("YouTube:{0}:Likes", videoId), stats.LikeCount)
-            Update(String.Format("YouTube:{0}:Views", videoId), stats.ViewCount)
-        Next
-    End Sub
-
-    Private Function TryGetSpotifyAlbumPlayCount(spotify As Spotify.API, albumId As Integer) As Spotify.Track()
-        Try
-            Return spotify.GetAlbumPlayCount(albumId)
-        Catch ex As Exception
-            Return Nothing
-        End Try
     End Function
 
-    Private Function TryGetYoutubeVideoStats(youtube As YouTubeService, videoId As String) As Data.VideoStatistics
-        Try
-            Dim request = New VideosResource(youtube).List("statistics")
+    Private Async Function RunYouTubeAsync(videoIds As HashSet(Of String)) As Task
+        Dim service As New YouTubeService(New BaseClientService.Initializer With {
+            .ApiKey = My.Settings.YoutubeApiKey})
+        For Each videoId In videoIds
+            Dim request = New VideosResource(service).List("statistics")
             request.Id = videoId
-            Dim response = request.Execute()
+            Dim response = Await request.ExecuteAsync()
 
-            If response.Items.Count = 0 Then Return Nothing
-            Return response.Items.First().Statistics
-        Catch ex As Exception
-            Return Nothing
-        End Try
+            If response.Items.Count = 0 Then Continue For
+
+            Dim stats = response.Items.First().Statistics
+            Update(String.Format("YouTube:{0}:Likes", videoId), stats.LikeCount)
+            Update(String.Format("YouTube:{0}:Views", videoId), stats.ViewCount)
+
+            Await Task.Delay(1000)
+        Next
     End Function
 
 End Class
