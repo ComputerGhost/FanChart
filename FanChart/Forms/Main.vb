@@ -61,8 +61,13 @@ Public Class Main
         Close()
     End Sub
 
-    Private Sub RunNowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunNowToolStripMenuItem.Click
-        monitor.RunAsync()
+    Private Async Sub RunNowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunNowToolStripMenuItem.Click
+        Try
+            Await monitor.RunAsync()
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+            Close()
+        End Try
     End Sub
 
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
