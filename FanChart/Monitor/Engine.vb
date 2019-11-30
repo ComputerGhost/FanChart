@@ -5,8 +5,6 @@ Imports Newtonsoft.Json
 
 Public Class Engine
 
-    Property Tweeter As New Tweeter
-
     Property Items As New Dictionary(Of String, MonitoredItem)
 
     Event ItemAdded(monitoredItem As MonitoredItem)
