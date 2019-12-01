@@ -9,6 +9,10 @@ Public Class AddSpotifyAlbum
         MyBase.ShowDialog()
     End Sub
 
+    Private Sub AddSpotifyAlbum_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtURL.Text = ""
+    End Sub
+
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim albumId = GetAlbumIdFromUrl(txtURL.Text)
         If albumId Is Nothing Then Exit Sub
@@ -36,5 +40,4 @@ Public Class AddSpotifyAlbum
 
         Return uri.Segments.Last()
     End Function
-
 End Class

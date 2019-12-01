@@ -11,6 +11,11 @@ Public Class AddYouTubeVideo
         MyBase.ShowDialog()
     End Sub
 
+    Private Sub AddYouTubeVideo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtTitle.Text = ""
+        txtURL.Text = ""
+    End Sub
+
     Private Async Sub btnLoad_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
         Dim videoId = GetVideoIdFromUrl(txtURL.Text)
         If videoId IsNot Nothing Then
