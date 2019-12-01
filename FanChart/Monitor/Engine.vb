@@ -86,7 +86,7 @@ Public Class Engine
 
             ' Skip if already updated within 24h
             If item.LastUpdated.HasValue Then
-                If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 24 Then
+                If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 8 Then
                     Continue For
                 End If
             End If
