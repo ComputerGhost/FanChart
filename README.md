@@ -1,17 +1,12 @@
 # FanChart
-Automatically tweet notifications of milestones for a fandom, pulled from multiple sources.
 
-I'll pretty up and improve this repo later.  For now, it's just here to share the code.
+Automatically tweet notifications of milestones for a fandom, pulled from multiple sources.
 
 ## Setup
 
-First, set up a Developer account on Twitter.  Expect it to take a few minutes.  Then create an app token, an app secret, a user token, and a user secret.
+When FanChart first runs, it prompts for all of the needed information.  This information can be obtained from obtained from Twitter, YouTube, and [evilarceus/Spotify-Playcount](https://github.com/evilarceus/Spotify-PlayCount).
 
-Second, set up an Application on YouTube.  All you need here is the API Key.
-
-Third, either set up... ah, what was it?  Some sort of Spotify server middleman, but I'll find the link later.  You'll need the endpoint URL minus the queries.
-
-Finally, start my program.  It will prompt you for all of the above.  Fill in the data, then it is ready to run!
+Once all of the API connections are configured, resources to be monitored can be managed via the "List" menu options.
 
 ## Scheduling?
 
@@ -19,4 +14,20 @@ Yea, it doesn't schedule automatically.  I plan to use an external tool for that
 
 ## Future Updates
 
-For the next week, I'll work on coding for edge cases, prettying up the code, and prettying up the output.  I may make the settings a little more flexible too.  We'll see what I have time to do.
+Leave a feature request if you have an idea!  I am doing this in my free time, so I have to ensure that my limited development time is spent on something wanted or needed.  :)
+
+Currently on my list are:
+
+
+### High Load Handling
+
+At some point, I need to code the software to handle high load.  Currently, it should error out and needs re-run until completion.  I won't bother with this until I start getting errors under normal use.
+
+### More Sources to Monitor
+
+I will add more sources to monitor, prioritized per demand.
+
+### Start on Run without GUI
+
+Eventually, I want to run this software from an event scheduler.  This won't work right now, but I'll add this ability once I'm comfortable with a "set it and forget it" approach.  Right now, I just need to see it running correctly.
+
