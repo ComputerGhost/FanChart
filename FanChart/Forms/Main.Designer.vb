@@ -150,11 +150,13 @@ Partial Class Main
         'colCount
         '
         Me.colCount.Text = "Count"
+        Me.colCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.colCount.Width = 100
         '
         'colDaily
         '
         Me.colDaily.Text = "Daily Average"
+        Me.colDaily.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.colDaily.Width = 100
         '
         'colUpdated

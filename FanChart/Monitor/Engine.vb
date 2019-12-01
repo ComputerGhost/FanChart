@@ -33,31 +33,29 @@ Public Class Engine
             Dim item = Items(key)
 
             ' Skip if no significant change in latest count
-            Dim oldLatestCount = item.EnglishLatestCount
-            item.LatestCount = latestCount
-            Dim newLatestCount = item.EnglishLatestCount
-            If oldLatestCount = newLatestCount Then Exit Sub
+            If Not item.IsSignificantChange(latestCount) Then Exit Sub
 
             ' Calculate the daily average
             Dim dailyAverage As Double? = Nothing
             If item.LatestCount.HasValue And item.LastUpdated.HasValue Then
-                Dim updatedDiff = DateDiff(DateInterval.Hour, Now, item.LastUpdated.Value) / 24
+                Dim updatedDiff = DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) / 24
                 Dim countDiff = latestCount - item.LatestCount.Value
                 dailyAverage = countDiff / updatedDiff
             End If
 
-            ' Update in our list
+            ' Update item with new values
             item.DailyAverage = dailyAverage
             item.LastUpdated = Now
             item.LatestCount = latestCount
 
             ' Send tweet, if it's not our first time
-            If oldLatestCount.Length > 0 Then
+            If item.LatestCount.HasValue Then
                 Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
-                api.Tweet(item.GetTweetText())
+                Dim tweetText = item.GetTweetText()
+                'api.Tweet(tweetText)
             End If
 
-            ' Now raise the update event, after we've had chance to error out
+            ' Update in our lists
             Items(key) = item
             RaiseEvent ItemUpdated(item)
         End SyncLock
@@ -84,7 +82,7 @@ Public Class Engine
         Dim youtubeVideoIds As New HashSet(Of String)
         For Each item In Items.Values
 
-            ' Skip if already updated within 24h
+            ' Skip if already updated recently
             If item.LastUpdated.HasValue Then
                 If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 8 Then
                     Continue For
