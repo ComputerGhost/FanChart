@@ -39,6 +39,19 @@ Public Structure MonitoredItem
         End Get
     End Property
 
+    <JsonIgnore>
+    ReadOnly Property URL As String
+        Get
+            Select Case SourceSite
+                Case "Spotify"
+                    Return "https://open.spotify.com/album/" & Identifier.Split(":")(0)
+                Case "YouTube"
+                    Return "https://youtu.be/" & Identifier
+            End Select
+            Return ""
+        End Get
+    End Property
+
 
     Public Function GetTweetTemplate() As String
         Select Case SourceSite & ":" & WatchedProperty
@@ -55,9 +68,9 @@ Public Structure MonitoredItem
     Public Function GetTweetText() As String
         Return GetTweetTemplate() _
             .Replace("{title}", Title) _
-            .Replace("{count}", If(LatestCount, "")) _
+            .Replace("{count}", EnglishLatestCount) _
             .Replace("{daily}", If(DailyAverage, "")) _
-            .Replace("{link}", "")
+            .Replace("{link}", URL)
     End Function
 
 End Structure

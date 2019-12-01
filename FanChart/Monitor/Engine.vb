@@ -29,7 +29,7 @@ Public Class Engine
     Sub Update(key As String, latestCount As Integer)
         Static threadLock As New Object
         SyncLock threadLock
-            If Not Items.ContainsKey(key) Then Exit Sub
+            Debug.Assert(Items.ContainsKey(key))
             Dim item = Items(key)
 
             ' Skip if no significant change in latest count
@@ -50,15 +50,15 @@ Public Class Engine
             item.DailyAverage = dailyAverage
             item.LastUpdated = Now
             item.LatestCount = latestCount
-            Items(key) = item
 
             ' Send tweet, if it's not our first time
-            If item.LastUpdated.HasValue Then
+            If oldLatestCount.Length > 0 Then
                 Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
                 api.Tweet(item.GetTweetText())
             End If
 
             ' Now raise the update event, after we've had chance to error out
+            Items(key) = item
             RaiseEvent ItemUpdated(item)
         End SyncLock
     End Sub

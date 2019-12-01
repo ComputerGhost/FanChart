@@ -28,13 +28,14 @@ Public Class Main
     Private Sub monitor_ItemUpdated(monitoredItem As MonitoredItem) Handles monitor.ItemUpdated
         For Each listItem As ListViewItem In lstSources.Items
             If CType(listItem.Tag, MonitoredItem).UniqueKey = monitoredItem.UniqueKey Then
-                listItem.SubItems(colCount.Index).Text = monitoredItem.LatestCount
-                listItem.SubItems(colDaily.Index).Text = monitoredItem.DailyAverage
-                listItem.SubItems(colUpdated.Index).Text = monitoredItem.LastUpdated
+                listItem.SubItems(colCount.Index).Text = If(monitoredItem.LatestCount, "")
+                listItem.SubItems(colDaily.Index).Text = If(monitoredItem.DailyAverage, "")
+                listItem.SubItems(colUpdated.Index).Text = If(monitoredItem.LastUpdated, "")
                 listItem.Tag = monitoredItem
                 Exit For
             End If
         Next
+        monitor.Save(GetFolderPath(SpecialFolder.ApplicationData) & "/sources.js")
     End Sub
 
     Private Function MonitoredItemToListViewItem(monitoredItem As MonitoredItem) As ListViewItem
@@ -66,7 +67,6 @@ Public Class Main
             Await monitor.RunAsync()
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
-            Close()
         End Try
     End Sub
 
