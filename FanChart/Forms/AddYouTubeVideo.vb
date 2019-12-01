@@ -14,7 +14,7 @@ Public Class AddYouTubeVideo
     Private Sub AddYouTubeVideo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtTitle.Text = ""
         txtURL.Text = ""
-        txtURL.Focus()
+        txtURL.Select()
     End Sub
 
     Private Async Sub btnLoad_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
