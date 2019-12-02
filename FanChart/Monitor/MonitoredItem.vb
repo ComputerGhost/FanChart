@@ -61,7 +61,7 @@ Public Structure MonitoredItem
 
     Public Function IsSignificantChange(newCount As Integer) As Boolean
         If Not LatestCount.HasValue Then Return False
-        Return GetEnglishNumber(LatestCount.Value, 2) = GetEnglishNumber(newCount, 2)
+        Return GetEnglishNumber(LatestCount.Value, 2) <> GetEnglishNumber(newCount, 2)
     End Function
 
 

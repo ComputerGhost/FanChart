@@ -52,7 +52,7 @@ Public Class Engine
             If item.LatestCount.HasValue Then
                 Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
                 Dim tweetText = item.GetTweetText()
-                'api.Tweet(tweetText)
+                api.Tweet(tweetText)
             End If
 
             ' Update in our lists
