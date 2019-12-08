@@ -44,12 +44,13 @@ Public Class Engine
             End If
 
             ' Update item with new values
+            Dim isNew = Not item.LastUpdated.HasValue
             item.DailyAverage = dailyAverage
             item.LastUpdated = Now
             item.LatestCount = latestCount
 
             ' Send tweet, if it's not our first time
-            If item.LatestCount.HasValue Then
+            If Not isNew Then
                 Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
                 Dim tweetText = item.GetTweetText()
                 api.Tweet(tweetText)
