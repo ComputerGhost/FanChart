@@ -64,8 +64,17 @@ Public Class Main
 
     Private Async Sub RunNowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunNowToolStripMenuItem.Click
         Try
+            RunNowToolStripMenuItem.Enabled = False
+            lblStatus.Text = "Running..."
+
             Await monitor.RunAsync()
+
+            RunNowToolStripMenuItem.Enabled = True
+            lblStatus.Text = "Completed"
+
         Catch ex As Exception
+            RunNowToolStripMenuItem.Enabled = True
+            lblStatus.Text = "Error: " & ex.Message
             MessageBox.Show(ex.ToString())
         End Try
     End Sub

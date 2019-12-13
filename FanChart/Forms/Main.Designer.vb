@@ -42,7 +42,10 @@ Partial Class Main
         Me.colCount = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colDaily = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colUpdated = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -128,7 +131,7 @@ Partial Class Main
         Me.lstSources.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstSources.Location = New System.Drawing.Point(0, 24)
         Me.lstSources.Name = "lstSources"
-        Me.lstSources.Size = New System.Drawing.Size(800, 426)
+        Me.lstSources.Size = New System.Drawing.Size(800, 404)
         Me.lstSources.TabIndex = 1
         Me.lstSources.UseCompatibleStateImageBehavior = False
         Me.lstSources.View = System.Windows.Forms.View.Details
@@ -164,6 +167,21 @@ Partial Class Main
         Me.colUpdated.Text = "Updated"
         Me.colUpdated.Width = 150
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 428)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(800, 22)
+        Me.StatusStrip1.TabIndex = 2
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(39, 17)
+        Me.lblStatus.Text = "Ready"
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -171,12 +189,15 @@ Partial Class Main
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.lstSources)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Main"
         Me.Text = "FanChart"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -201,4 +222,6 @@ Partial Class Main
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents RemoveCurrentToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents colProperty As ColumnHeader
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents lblStatus As ToolStripStatusLabel
 End Class
