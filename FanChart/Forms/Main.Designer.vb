@@ -44,6 +44,7 @@ Partial Class Main
         Me.colUpdated = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.colSynced = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -53,7 +54,7 @@ Partial Class Main
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SyncToolStripMenuItem, Me.AddToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(915, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -80,18 +81,18 @@ Partial Class Main
         'RunNowToolStripMenuItem
         '
         Me.RunNowToolStripMenuItem.Name = "RunNowToolStripMenuItem"
-        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(122, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SettingsToolStripMenuItem.Text = "&Settings..."
         '
         'AddToolStripMenuItem
@@ -127,11 +128,11 @@ Partial Class Main
         'lstSources
         '
         Me.lstSources.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lstSources.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colSource, Me.colTitle, Me.colProperty, Me.colCount, Me.colDaily, Me.colUpdated})
+        Me.lstSources.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colSource, Me.colTitle, Me.colProperty, Me.colCount, Me.colDaily, Me.colUpdated, Me.colSynced})
         Me.lstSources.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstSources.Location = New System.Drawing.Point(0, 24)
         Me.lstSources.Name = "lstSources"
-        Me.lstSources.Size = New System.Drawing.Size(800, 404)
+        Me.lstSources.Size = New System.Drawing.Size(915, 478)
         Me.lstSources.TabIndex = 1
         Me.lstSources.UseCompatibleStateImageBehavior = False
         Me.lstSources.View = System.Windows.Forms.View.Details
@@ -139,12 +140,12 @@ Partial Class Main
         'colSource
         '
         Me.colSource.Text = "Source"
-        Me.colSource.Width = 190
+        Me.colSource.Width = 200
         '
         'colTitle
         '
         Me.colTitle.Text = "Title"
-        Me.colTitle.Width = 200
+        Me.colTitle.Width = 175
         '
         'colProperty
         '
@@ -165,14 +166,14 @@ Partial Class Main
         'colUpdated
         '
         Me.colUpdated.Text = "Updated"
-        Me.colUpdated.Width = 150
+        Me.colUpdated.Width = 140
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 428)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 502)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(800, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(915, 22)
         Me.StatusStrip1.TabIndex = 2
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -182,11 +183,16 @@ Partial Class Main
         Me.lblStatus.Size = New System.Drawing.Size(39, 17)
         Me.lblStatus.Text = "Ready"
         '
+        'colSynced
+        '
+        Me.colSynced.Text = "Synced"
+        Me.colSynced.Width = 140
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(915, 524)
         Me.Controls.Add(Me.lstSources)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
@@ -224,4 +230,5 @@ Partial Class Main
     Friend WithEvents colProperty As ColumnHeader
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents lblStatus As ToolStripStatusLabel
+    Friend WithEvents colSynced As ColumnHeader
 End Class

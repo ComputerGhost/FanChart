@@ -9,6 +9,7 @@ Public Structure MonitoredItem
     Property LatestCount As Integer?
     Property DailyAverage As Double?
     Property LastUpdated As Date?
+    Property LastSynced As Date?
 
     <JsonIgnore>
     ReadOnly Property UniqueKey As String

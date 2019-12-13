@@ -31,6 +31,7 @@ Public Class Main
                 listItem.SubItems(colCount.Index).Text = If(monitoredItem.LatestCount, "")
                 listItem.SubItems(colDaily.Index).Text = If(monitoredItem.DailyAverage, "")
                 listItem.SubItems(colUpdated.Index).Text = If(monitoredItem.LastUpdated, "")
+                listItem.SubItems(colSynced.Index).Text = If(monitoredItem.LastSynced, "")
                 listItem.Tag = monitoredItem
                 Exit For
             End If
@@ -45,7 +46,8 @@ Public Class Main
             monitoredItem.WatchedProperty,
             If(monitoredItem.LatestCount, ""),
             If(monitoredItem.DailyAverage, ""),
-            If(monitoredItem.LastUpdated, "")})
+            If(monitoredItem.LastUpdated, ""),
+            If(monitoredItem.LastSynced, "")})
         listItem.Tag = monitoredItem
         Return listItem
     End Function

@@ -32,29 +32,34 @@ Public Class Engine
             Debug.Assert(Items.ContainsKey(key))
             Dim item = Items(key)
 
-            ' Skip if no significant change in latest count
-            If Not item.IsSignificantChange(latestCount) Then Exit Sub
+            ' Only update if significant change in latest count
+            If item.IsSignificantChange(latestCount) Then
 
-            ' Calculate the daily average
-            Dim dailyAverage As Double? = Nothing
-            If item.LatestCount.HasValue And item.LastUpdated.HasValue Then
-                Dim updatedDiff = DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) / 24
-                Dim countDiff = latestCount - item.LatestCount.Value
-                dailyAverage = countDiff / updatedDiff
+                ' Calculate the daily average
+                Dim dailyAverage As Double? = Nothing
+                If item.LatestCount.HasValue And item.LastUpdated.HasValue Then
+                    Dim updatedDiff = DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) / 24
+                    Dim countDiff = latestCount - item.LatestCount.Value
+                    dailyAverage = countDiff / updatedDiff
+                End If
+
+                ' Update item with new values
+                Dim isNew = Not item.LastUpdated.HasValue
+                item.DailyAverage = dailyAverage
+                item.LastUpdated = Now
+                item.LatestCount = latestCount
+
+                ' Send tweet, if it's not our first time
+                If Not isNew Then
+                    Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
+                    Dim tweetText = item.GetTweetText()
+                    api.Tweet(tweetText)
+                End If
+
             End If
 
-            ' Update item with new values
-            Dim isNew = Not item.LastUpdated.HasValue
-            item.DailyAverage = dailyAverage
-            item.LastUpdated = Now
-            item.LatestCount = latestCount
-
-            ' Send tweet, if it's not our first time
-            If Not isNew Then
-                Dim api As New Twitter.API(My.Settings.TwitterAppToken, My.Settings.TwitterAppSecret, My.Settings.TwitterUserToken, My.Settings.TwitterUserSecret)
-                Dim tweetText = item.GetTweetText()
-                api.Tweet(tweetText)
-            End If
+            ' After success (update or not), update our sync time.
+            item.LastSynced = Now
 
             ' Update in our lists
             Items(key) = item
@@ -83,9 +88,9 @@ Public Class Engine
         Dim youtubeVideoIds As New HashSet(Of String)
         For Each item In Items.Values
 
-            ' Skip if already updated recently
-            If item.LastUpdated.HasValue Then
-                If DateDiff(DateInterval.Hour, item.LastUpdated.Value, Now) < 8 Then
+            ' Skip if already synced recently
+            If item.LastSynced.HasValue Then
+                If DateDiff(DateInterval.Hour, item.LastSynced.Value, Now) < 8 Then
                     Continue For
                 End If
             End If
