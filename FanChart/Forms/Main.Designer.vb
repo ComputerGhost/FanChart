@@ -42,9 +42,9 @@ Partial Class Main
         Me.colCount = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colDaily = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colUpdated = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.colSynced = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.colSynced = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -168,6 +168,11 @@ Partial Class Main
         Me.colUpdated.Text = "Updated"
         Me.colUpdated.Width = 140
         '
+        'colSynced
+        '
+        Me.colSynced.Text = "Synced"
+        Me.colSynced.Width = 140
+        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
@@ -182,11 +187,6 @@ Partial Class Main
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(39, 17)
         Me.lblStatus.Text = "Ready"
-        '
-        'colSynced
-        '
-        Me.colSynced.Text = "Synced"
-        Me.colSynced.Width = 140
         '
         'Main
         '

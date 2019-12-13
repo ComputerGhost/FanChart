@@ -28,8 +28,8 @@ Public Class Main
     Private Sub monitor_ItemUpdated(monitoredItem As MonitoredItem) Handles monitor.ItemUpdated
         For Each listItem As ListViewItem In lstSources.Items
             If CType(listItem.Tag, MonitoredItem).UniqueKey = monitoredItem.UniqueKey Then
-                listItem.SubItems(colCount.Index).Text = If(monitoredItem.LatestCount, "")
-                listItem.SubItems(colDaily.Index).Text = If(monitoredItem.DailyAverage, "")
+                listItem.SubItems(colCount.Index).Text = If(monitoredItem.LatestCount?.ToString("N0"), "")
+                listItem.SubItems(colDaily.Index).Text = If(monitoredItem.DailyAverage?.ToString("N0"), "")
                 listItem.SubItems(colUpdated.Index).Text = If(monitoredItem.LastUpdated, "")
                 listItem.SubItems(colSynced.Index).Text = If(monitoredItem.LastSynced, "")
                 listItem.Tag = monitoredItem
@@ -44,8 +44,8 @@ Public Class Main
             monitoredItem.SourceSite & ":" & monitoredItem.Identifier,
             monitoredItem.Title,
             monitoredItem.WatchedProperty,
-            If(monitoredItem.LatestCount, ""),
-            If(monitoredItem.DailyAverage, ""),
+            If(monitoredItem.LatestCount?.ToString("N0"), ""),
+            If(monitoredItem.DailyAverage?.ToString("N0"), ""),
             If(monitoredItem.LastUpdated, ""),
             If(monitoredItem.LastSynced, "")})
         listItem.Tag = monitoredItem
