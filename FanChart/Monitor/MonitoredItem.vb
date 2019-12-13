@@ -62,7 +62,7 @@ Public Structure MonitoredItem
 
     Public Function IsSignificantChange(newCount As Integer) As Boolean
         If Not LatestCount.HasValue Then Return False
-        Return GetEnglishNumber(LatestCount.Value, 2) <> GetEnglishNumber(newCount, 2)
+        Return GetMilestone(LatestCount.Value) <> GetMilestone(newCount)
     End Function
 
 
@@ -80,6 +80,25 @@ Public Structure MonitoredItem
         Else
             Return truncated
         End If
+    End Function
+
+    Private Function GetMilestone(number As Integer) As Integer
+        If number = 0 Then Return 0
+
+        ' We only care about the first three digits.
+        Dim digitCount As Integer = Math.Floor(Math.Log10(number) + 1)
+        Dim scale = Math.Pow(10, digitCount - 3)
+        Dim firstThree As Integer = Math.Floor(number / scale)
+
+        ' Round down to the highest milestone
+        Dim milestones = {999, 998, 997, 996, 995, 994, 993, 992, 991, 990, 750, 500, 499, 498, 497, 496, 495, 250, 100}
+        For Each milestone In milestones
+            If firstThree >= milestone Then Return milestone * scale
+        Next
+
+        ' We should not get to this point.
+        Debug.Assert("Logic error in program while calculating milestone.")
+        Return 0
     End Function
 
 End Structure
