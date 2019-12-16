@@ -44,11 +44,13 @@ Partial Class EditSettings
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.txtTwitterUserToken = New System.Windows.Forms.TextBox()
-        Me.txtTwitterUserSecret = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtTwitterUserSecret = New System.Windows.Forms.TextBox()
+        Me.txtTwitterUserToken = New System.Windows.Forms.TextBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.txtYouTubeSubsNotice = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -225,7 +227,7 @@ Partial Class EditSettings
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(12, 353)
+        Me.btnSave.Location = New System.Drawing.Point(12, 379)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 10
@@ -236,7 +238,7 @@ Partial Class EditSettings
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(380, 353)
+        Me.btnCancel.Location = New System.Drawing.Point(380, 379)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 11
@@ -275,35 +277,14 @@ Partial Class EditSettings
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Twitter"
         '
-        'GroupBox4
+        'Label5
         '
-        Me.GroupBox4.Controls.Add(Me.txtYoutubeLikesNotice)
-        Me.GroupBox4.Controls.Add(Me.txtYoutubeApiKey)
-        Me.GroupBox4.Controls.Add(Me.Label9)
-        Me.GroupBox4.Controls.Add(Me.PictureBox3)
-        Me.GroupBox4.Controls.Add(Me.txtYoutubeViewsNotice)
-        Me.GroupBox4.Controls.Add(Me.Label6)
-        Me.GroupBox4.Controls.Add(Me.Label8)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 218)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(443, 123)
-        Me.GroupBox4.TabIndex = 14
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "YouTube"
-        '
-        'txtTwitterUserToken
-        '
-        Me.txtTwitterUserToken.Location = New System.Drawing.Point(130, 71)
-        Me.txtTwitterUserToken.Name = "txtTwitterUserToken"
-        Me.txtTwitterUserToken.Size = New System.Drawing.Size(307, 20)
-        Me.txtTwitterUserToken.TabIndex = 5
-        '
-        'txtTwitterUserSecret
-        '
-        Me.txtTwitterUserSecret.Location = New System.Drawing.Point(130, 97)
-        Me.txtTwitterUserSecret.Name = "txtTwitterUserSecret"
-        Me.txtTwitterUserSecret.Size = New System.Drawing.Size(307, 20)
-        Me.txtTwitterUserSecret.TabIndex = 6
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(58, 100)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(66, 13)
+        Me.Label5.TabIndex = 8
+        Me.Label5.Text = "User Secret:"
         '
         'Label2
         '
@@ -314,21 +295,65 @@ Partial Class EditSettings
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "User Token:"
         '
-        'Label5
+        'txtTwitterUserSecret
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(58, 100)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(66, 13)
-        Me.Label5.TabIndex = 8
-        Me.Label5.Text = "User Secret:"
+        Me.txtTwitterUserSecret.Location = New System.Drawing.Point(130, 97)
+        Me.txtTwitterUserSecret.Name = "txtTwitterUserSecret"
+        Me.txtTwitterUserSecret.Size = New System.Drawing.Size(307, 20)
+        Me.txtTwitterUserSecret.TabIndex = 6
+        '
+        'txtTwitterUserToken
+        '
+        Me.txtTwitterUserToken.Location = New System.Drawing.Point(130, 71)
+        Me.txtTwitterUserToken.Name = "txtTwitterUserToken"
+        Me.txtTwitterUserToken.Size = New System.Drawing.Size(307, 20)
+        Me.txtTwitterUserToken.TabIndex = 5
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.txtYouTubeSubsNotice)
+        Me.GroupBox4.Controls.Add(Me.Label7)
+        Me.GroupBox4.Controls.Add(Me.txtYoutubeLikesNotice)
+        Me.GroupBox4.Controls.Add(Me.txtYoutubeApiKey)
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.PictureBox3)
+        Me.GroupBox4.Controls.Add(Me.txtYoutubeViewsNotice)
+        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.Label8)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 218)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(443, 149)
+        Me.GroupBox4.TabIndex = 14
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "YouTube"
+        '
+        'txtYouTubeSubsNotice
+        '
+        Me.txtYouTubeSubsNotice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtYouTubeSubsNotice.Location = New System.Drawing.Point(84, 123)
+        Me.txtYouTubeSubsNotice.MaxLength = 140
+        Me.txtYouTubeSubsNotice.Name = "txtYouTubeSubsNotice"
+        Me.txtYouTubeSubsNotice.Size = New System.Drawing.Size(353, 20)
+        Me.txtYouTubeSubsNotice.TabIndex = 9
+        Me.txtYouTubeSubsNotice.Text = "{title} has reached {count} subscribers on YouTube!  (The current daily average i" &
+    "s {daily}.)  {link}"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 126)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(68, 13)
+        Me.Label7.TabIndex = 10
+        Me.Label7.Text = "Subs Notice:"
         '
         'EditSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(467, 388)
+        Me.ClientSize = New System.Drawing.Size(467, 414)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox1)
@@ -378,4 +403,6 @@ Partial Class EditSettings
     Friend WithEvents Label2 As Label
     Friend WithEvents txtTwitterUserSecret As TextBox
     Friend WithEvents txtTwitterUserToken As TextBox
+    Friend WithEvents txtYouTubeSubsNotice As TextBox
+    Friend WithEvents Label7 As Label
 End Class

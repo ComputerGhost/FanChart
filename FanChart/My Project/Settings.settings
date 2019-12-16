@@ -29,5 +29,8 @@
     <Setting Name="TwitterAppSecret" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="YoutubeSubsNotice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{title} has reached {count} subscribers on YouTube!  (The current daily average is {daily}.)  {link}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

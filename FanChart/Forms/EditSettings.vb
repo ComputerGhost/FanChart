@@ -11,6 +11,7 @@
             txtYoutubeApiKey.Text = .YoutubeApiKey
             txtYoutubeLikesNotice.Text = .YoutubeLikesNotice
             txtYoutubeViewsNotice.Text = .YoutubeViewsNotice
+            txtYouTubeSubsNotice.Text = .YoutubeSubsNotice
         End With
     End Sub
 
@@ -25,6 +26,7 @@
             .YoutubeApiKey = txtYoutubeApiKey.Text
             .YoutubeLikesNotice = txtYoutubeLikesNotice.Text
             .YoutubeViewsNotice = txtYoutubeViewsNotice.Text
+            .YoutubeSubsNotice = txtYouTubeSubsNotice.Text
         End With
         My.Settings.Save()
         Close()

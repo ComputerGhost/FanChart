@@ -85,6 +85,7 @@ Public Class Engine
 
         ' Since our list will be changing, go ahead and copy the keys
         Dim spotifyAlbumIds As New HashSet(Of String)
+        Dim youtubeChannelIds As New HashSet(Of String)
         Dim youtubeVideoIds As New HashSet(Of String)
         For Each item In Items.Values
 
@@ -100,14 +101,19 @@ Public Class Engine
                 Case "Spotify"
                     spotifyAlbumIds.Add(item.Identifier.Split(":"c)(0))
                 Case "YouTube"
-                    youtubeVideoIds.Add(item.Identifier)
+                    If item.WatchedProperty = "Subscribers" Then
+                        youtubeChannelIds.Add(item.Identifier)
+                    Else
+                        youtubeVideoIds.Add(item.Identifier)
+                    End If
             End Select
         Next
 
         ' Now we actually run it
         Dim spotifyTask = RunSpotifyAsync(spotifyAlbumIds)
-        Dim youtubeTask = RunYouTubeAsync(youtubeVideoIds)
-        Await Task.WhenAll(spotifyTask, youtubeTask)
+        Dim youtubeChannelsTask = RunYouTubeChannelsAsync(youtubeChannelIds)
+        Dim youtubeVideosTask = RunYouTubeVideosAsync(youtubeVideoIds)
+        Await Task.WhenAll(spotifyTask, youtubeChannelsTask, youtubeVideosTask)
     End Function
 
     Private Async Function RunSpotifyAsync(albumIds As HashSet(Of String)) As Task
@@ -121,7 +127,24 @@ Public Class Engine
         Next
     End Function
 
-    Private Async Function RunYouTubeAsync(videoIds As HashSet(Of String)) As Task
+    Private Async Function RunYouTubeChannelsAsync(channelIds As HashSet(Of String)) As Task
+        Dim service As New YouTubeService(New BaseClientService.Initializer With {
+            .ApiKey = My.Settings.YoutubeApiKey})
+        For Each channelId In channelIds
+            Dim request = New ChannelsResource(service).List("statistics")
+            request.Id = channelId
+            Dim response = Await request.ExecuteAsync()
+
+            If response.Items.Count = 0 Then Continue For
+
+            Dim stats = response.Items.First().Statistics
+            Update(String.Format("YouTube:{0}:Subscribers", channelId), stats.SubscriberCount)
+
+            Await Task.Delay(1000)
+        Next
+    End Function
+
+    Private Async Function RunYouTubeVideosAsync(videoIds As HashSet(Of String)) As Task
         Dim service As New YouTubeService(New BaseClientService.Initializer With {
             .ApiKey = My.Settings.YoutubeApiKey})
         For Each videoId In videoIds

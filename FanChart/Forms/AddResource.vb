@@ -23,6 +23,7 @@ Public Class AddResource
         Dim info = GetAssetUrlInfo(txtURL.Text)
         Select Case info?.type
             Case AssetUrlType.YouTubeChannel
+                txtTitle.Text = Await GetChannelTitleAsync(info.identifier)
             Case AssetUrlType.YouTubeVideo
                 txtTitle.Text = Await GetVideoTitleAsync(info.identifier)
         End Select
@@ -48,6 +49,12 @@ Public Class AddResource
                 Next
 
             Case AssetUrlType.YouTubeChannel
+                Dim channelId = info.identifier
+                engine.Add(New MonitoredItem With {
+                    .SourceSite = "YouTube",
+                    .Identifier = channelId,
+                    .WatchedProperty = "Subscribers",
+                    .Title = txtTitle.Text})
 
             Case AssetUrlType.YouTubeVideo
                 Dim videoId = info.identifier
@@ -106,13 +113,13 @@ Public Class AddResource
         Select Case uri.Host
             Case "youtu.be"
                 If uri.Segments.Count <> 2 Then Return Nothing
-                Return New AssetUrlInfo(AssetUrlType.YouTubeVideo, uri.Segments(0))
+                Return New AssetUrlInfo(AssetUrlType.YouTubeVideo, uri.Segments(1))
 
             Case "youtube.com", "www.youtube.com"
-                If uri.Segments.Count >= 3 AndAlso uri.Segments.First() = "channel" Then
+                If uri.Segments.Count >= 3 AndAlso uri.Segments(1) = "channel/" Then
                     Return New AssetUrlInfo(AssetUrlType.YouTubeChannel, uri.Segments(2))
 
-                ElseIf uri.Segments.Count = 2 AndAlso uri.Segments.Last() = "watch" Then
+                ElseIf uri.Segments.Count = 2 AndAlso uri.Segments(1) = "watch" Then
                     Dim parameters = HttpUtility.ParseQueryString(uri.Query)
                     If Not parameters.AllKeys.Contains("v") Then Return Nothing
                     Return New AssetUrlInfo(AssetUrlType.YouTubeVideo, parameters("v"))
@@ -129,6 +136,17 @@ Public Class AddResource
 
 
     ' YouTube helpers
+
+    Private Async Function GetChannelTitleAsync(channelId As String) As Task(Of String)
+        Dim service As New YouTubeService(New BaseClientService.Initializer With {
+            .ApiKey = My.Settings.YoutubeApiKey})
+        Dim request = New ChannelsResource(service).List("snippet")
+        request.Id = channelId
+        Dim response = Await request.ExecuteAsync()
+
+        If response.Items.Count = 0 Then Return Nothing
+        Return response.Items.First().Snippet.Title
+    End Function
 
     Private Async Function GetVideoTitleAsync(videoId As String) As Task(Of String)
         Dim service As New YouTubeService(New BaseClientService.Initializer With {
