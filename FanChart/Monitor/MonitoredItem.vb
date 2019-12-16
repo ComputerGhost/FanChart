@@ -61,7 +61,7 @@ Public Structure MonitoredItem
     End Function
 
     Public Function IsSignificantChange(newCount As Integer) As Boolean
-        If Not LatestCount.HasValue Then Return False
+        If Not LatestCount.HasValue Then Return True
         Return GetMilestone(LatestCount.Value) <> GetMilestone(newCount)
     End Function
 
