@@ -98,20 +98,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddResource.Designer.vb">
+      <DependentUpon>AddResource.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddResource.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Monitor\Engine.vb" />
     <Compile Include="Monitor\MonitoredItem.vb" />
-    <Compile Include="Forms\AddSpotifyAlbum.Designer.vb">
-      <DependentUpon>AddSpotifyAlbum.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\AddSpotifyAlbum.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AddYouTubeVideo.Designer.vb">
-      <DependentUpon>AddYouTubeVideo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\AddYouTubeVideo.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\EditSettings.Designer.vb">
       <DependentUpon>EditSettings.vb</DependentUpon>
     </Compile>
@@ -141,11 +135,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\AddSpotifyAlbum.resx">
-      <DependentUpon>AddSpotifyAlbum.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddYouTubeVideo.resx">
-      <DependentUpon>AddYouTubeVideo.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\AddResource.resx">
+      <DependentUpon>AddResource.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditSettings.resx">
       <DependentUpon>EditSettings.vb</DependentUpon>

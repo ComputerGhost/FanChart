@@ -85,12 +85,8 @@ Public Class Main
         EditSettings.ShowDialog()
     End Sub
 
-    Private Sub AddSpotifyAlbumToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddSpotifyAlbumToolStripMenuItem.Click
-        AddSpotifyAlbum.ShowDialog(monitor)
-    End Sub
-
-    Private Sub AddYoutubeVideoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddYoutubeVideoToolStripMenuItem.Click
-        AddYouTubeVideo.ShowDialog(monitor)
+    Private Sub AddResourceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddResourceToolStripMenuItem.Click
+        AddResource.ShowDialog(monitor)
     End Sub
 
     Private Sub RemoveCurrentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveCurrentToolStripMenuItem.Click

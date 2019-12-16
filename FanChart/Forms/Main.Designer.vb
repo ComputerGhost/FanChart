@@ -31,8 +31,6 @@ Partial Class Main
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddSpotifyAlbumToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddYoutubeVideoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.RemoveCurrentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.lstSources = New System.Windows.Forms.ListView()
@@ -45,6 +43,7 @@ Partial Class Main
         Me.colSynced = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -97,32 +96,20 @@ Partial Class Main
         '
         'AddToolStripMenuItem
         '
-        Me.AddToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddSpotifyAlbumToolStripMenuItem, Me.AddYoutubeVideoToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoveCurrentToolStripMenuItem})
+        Me.AddToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddResourceToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoveCurrentToolStripMenuItem})
         Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
         Me.AddToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.AddToolStripMenuItem.Text = "&List"
         '
-        'AddSpotifyAlbumToolStripMenuItem
-        '
-        Me.AddSpotifyAlbumToolStripMenuItem.Name = "AddSpotifyAlbumToolStripMenuItem"
-        Me.AddSpotifyAlbumToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.AddSpotifyAlbumToolStripMenuItem.Text = "Add &Spotify Album..."
-        '
-        'AddYoutubeVideoToolStripMenuItem
-        '
-        Me.AddYoutubeVideoToolStripMenuItem.Name = "AddYoutubeVideoToolStripMenuItem"
-        Me.AddYoutubeVideoToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.AddYoutubeVideoToolStripMenuItem.Text = "Add &Youtube Video..."
-        '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(182, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'RemoveCurrentToolStripMenuItem
         '
         Me.RemoveCurrentToolStripMenuItem.Name = "RemoveCurrentToolStripMenuItem"
-        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RemoveCurrentToolStripMenuItem.Text = "&Remove Selected"
         '
         'lstSources
@@ -188,6 +175,12 @@ Partial Class Main
         Me.lblStatus.Size = New System.Drawing.Size(39, 17)
         Me.lblStatus.Text = "Ready"
         '
+        'AddResourceToolStripMenuItem
+        '
+        Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
+        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AddResourceToolStripMenuItem.Text = "Add Resource..."
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -223,12 +216,11 @@ Partial Class Main
     Friend WithEvents RunNowToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AddSpotifyAlbumToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AddYoutubeVideoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents RemoveCurrentToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents colProperty As ColumnHeader
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents lblStatus As ToolStripStatusLabel
     Friend WithEvents colSynced As ColumnHeader
+    Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
 End Class
