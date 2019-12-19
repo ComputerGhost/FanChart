@@ -46,6 +46,8 @@ Public Structure MonitoredItem
                 Return My.Settings.SpotifyStreamsNotice
             Case "YouTube:Likes"
                 Return My.Settings.YoutubeLikesNotice
+            Case "YouTube:Subscribers"
+                Return My.Settings.YoutubeSubsNotice
             Case "YouTube:Views"
                 Return My.Settings.YoutubeViewsNotice
         End Select
