@@ -33,7 +33,11 @@ Public Structure MonitoredItem
                 Case "Spotify"
                     Return "https://open.spotify.com/album/" & Identifier.Split(":")(0)
                 Case "YouTube"
-                    Return "https://youtu.be/" & Identifier
+                    If WatchedProperty = "Subscribers" Then
+                        Return "https://youtube.com/channel/" & Identifier
+                    Else
+                        Return "https://youtu.be/" & Identifier
+                    End If
             End Select
             Return ""
         End Get
