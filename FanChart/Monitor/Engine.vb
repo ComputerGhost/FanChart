@@ -29,7 +29,7 @@ Public Class Engine
     Sub Update(key As String, latestCount As Integer)
         Static threadLock As New Object
         SyncLock threadLock
-            Debug.Assert(Items.ContainsKey(key))
+            If Not Items.ContainsKey(key) Then Exit Sub
             Dim item = Items(key)
 
             ' Only update if significant change in latest count
