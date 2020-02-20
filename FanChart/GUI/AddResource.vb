@@ -1,15 +1,9 @@
 ﻿Imports System.Web
 Imports Google.Apis.Services
 Imports Google.Apis.YouTube.v3
+Imports MySql.Data.MySqlClient
 
 Public Class AddResource
-
-    Private engine As Engine
-
-    Overloads Sub ShowDialog(engine As Engine)
-        Me.engine = engine
-        MyBase.ShowDialog()
-    End Sub
 
     Private Sub AddResource_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtURL.Text = ""
@@ -34,40 +28,16 @@ Public Class AddResource
         Select Case info?.type
 
             Case AssetUrlType.SpotifyAlbum
-                Dim albumId = info.identifier
-                Dim api As New Spotify.API(My.Settings.SpotifyEndpoint)
-                Dim tracks = api.GetAlbumPlayCount(albumId)
-                For Each track In tracks
-                    engine.Add(New MonitoredItem With {
-                        .SourceSite = "Spotify",
-                        .Identifier = String.Format("{0}:{1}:{2}", albumId, track.disc, track.number),
-                        .WatchedProperty = "playcount",
-                        .Title = track.name,
-                        .LatestCount = track.playcount,
-                        .LastUpdated = Now,
-                        .LastSynced = Now})
+                For Each track In New SpotifyAPI().GetAlbumPlayCountAsync(info.identifier).Result
+                    AddItem("Spotify", "Song", info.identifier, "Plays", txtTitle.Text, txtURL.Text)
                 Next
 
             Case AssetUrlType.YouTubeChannel
-                Dim channelId = info.identifier
-                engine.Add(New MonitoredItem With {
-                    .SourceSite = "YouTube",
-                    .Identifier = channelId,
-                    .WatchedProperty = "Subscribers",
-                    .Title = txtTitle.Text})
+                AddItem("YouTube", "Channel", info.identifier, "Subscribers", txtTitle.Text, txtURL.Text)
 
             Case AssetUrlType.YouTubeVideo
-                Dim videoId = info.identifier
-                engine.Add(New MonitoredItem With {
-                    .SourceSite = "YouTube",
-                    .Identifier = videoId,
-                    .WatchedProperty = "Views",
-                    .Title = txtTitle.Text})
-                engine.Add(New MonitoredItem With {
-                    .SourceSite = "YouTube",
-                    .Identifier = videoId,
-                    .WatchedProperty = "Likes",
-                    .Title = txtTitle.Text})
+                AddItem("YouTube", "Video", info.identifier, "Views", txtTitle.Text, txtURL.Text)
+                AddItem("YouTube", "Video", info.identifier, "Likes", txtTitle.Text, txtURL.Text)
 
         End Select
 
@@ -85,6 +55,39 @@ Public Class AddResource
                 btnLoad.Enabled = True
             End If
         End If
+    End Sub
+
+
+    Private Sub AddItem(site As String, type As String, theirId As String, propName As String, title As String, url As String)
+        Using connection As New MySqlConnection(My.Settings.ConnectionString)
+            connection.Open()
+
+            Dim cmd = connection.CreateCommand()
+            cmd.Parameters.AddRange({
+                New MySqlParameter("site", MySqlDbType.VarChar) With {.Value = site},
+                New MySqlParameter("type", MySqlDbType.VarChar) With {.Value = type},
+                New MySqlParameter("theirId", MySqlDbType.VarChar) With {.Value = theirId},
+                New MySqlParameter("propName", MySqlDbType.VarChar) With {.Value = propName},
+                New MySqlParameter("title", MySqlDbType.VarChar) With {.Value = title},
+                New MySqlParameter("url", MySqlDbType.VarChar) With {.Value = url},
+                New MySqlParameter("monitoredId", MySqlDbType.Int32) With {.Value = 0}})
+
+            ' Get monitored item; insert if it doesn't exist
+            cmd.CommandText = "SELECT id FROM monitored_items WHERE site=@site AND type=@type AND their_id=@theirId"
+            Dim monitoredId = cmd.ExecuteScalar()
+            If monitoredId Is Nothing Then
+                cmd.CommandText = "INSERT INTO monitored_items (site,their_id,type,title,url) VALUES (@site,@theirId,@type,@title,@url);"
+                monitoredId = cmd.LastInsertedId()
+            End If
+            cmd.Parameters("monitoredId").Value = monitoredId
+
+            ' Check if property already exists.  If not, add it.
+            cmd.CommandText = "SELECT COUNT(*) FROM monitored_properties WHERE monitored_id=@monitoredId AND property=@propName"
+            If cmd.ExecuteScalar() > 0 Then Exit Sub
+            cmd.CommandText = "INSERT INTO monitored_properties (monitored_id,property) VALUES (@monitoredid,@propName)"
+            cmd.ExecuteNonQuery()
+
+        End Using
     End Sub
 
 

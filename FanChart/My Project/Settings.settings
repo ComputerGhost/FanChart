@@ -5,9 +5,6 @@
     <Setting Name="SpotifyEndpoint" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="SpotifyStreamsNotice" Type="System.String" Scope="User">
-      <Value Profile="(Default)">{title} has reached {count} streams on Spotify!  (The current daily average is {daily}.)  {link}</Value>
-    </Setting>
     <Setting Name="TwitterUserToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -17,20 +14,14 @@
     <Setting Name="YoutubeApiKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="YoutubeViewsNotice" Type="System.String" Scope="User">
-      <Value Profile="(Default)">{title} has reached {count} views on YouTube!  (The current daily average is {daily}.)  {link}</Value>
-    </Setting>
-    <Setting Name="YoutubeLikesNotice" Type="System.String" Scope="User">
-      <Value Profile="(Default)">{title} has reached {count} likes on YouTube!  (The current daily average is {daily}.)  {link}</Value>
-    </Setting>
     <Setting Name="TwitterAppToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TwitterAppSecret" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="YoutubeSubsNotice" Type="System.String" Scope="User">
-      <Value Profile="(Default)">{title} has reached {count} subscribers on YouTube!  (The current daily average is {daily}.)  {link}</Value>
+    <Setting Name="ConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

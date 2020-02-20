@@ -23,12 +23,6 @@ Partial Class EditSettings
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EditSettings))
-        Me.txtSpotifyStreamsNotice = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtYoutubeLikesNotice = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtYoutubeViewsNotice = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -49,78 +43,17 @@ Partial Class EditSettings
         Me.txtTwitterUserSecret = New System.Windows.Forms.TextBox()
         Me.txtTwitterUserToken = New System.Windows.Forms.TextBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.txtYouTubeSubsNotice = New System.Windows.Forms.TextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtConnectionString = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'txtSpotifyStreamsNotice
-        '
-        Me.txtSpotifyStreamsNotice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSpotifyStreamsNotice.Location = New System.Drawing.Point(146, 45)
-        Me.txtSpotifyStreamsNotice.MaxLength = 140
-        Me.txtSpotifyStreamsNotice.Name = "txtSpotifyStreamsNotice"
-        Me.txtSpotifyStreamsNotice.Size = New System.Drawing.Size(291, 20)
-        Me.txtSpotifyStreamsNotice.TabIndex = 2
-        Me.txtSpotifyStreamsNotice.Text = "{title} has reached {count} streams on Spotify!  (The current daily average is {d" &
-    "aily}.)  {link}"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(58, 48)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(82, 13)
-        Me.Label10.TabIndex = 11
-        Me.Label10.Text = "Streams Notice:"
-        '
-        'txtYoutubeLikesNotice
-        '
-        Me.txtYoutubeLikesNotice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtYoutubeLikesNotice.Location = New System.Drawing.Point(84, 97)
-        Me.txtYoutubeLikesNotice.MaxLength = 140
-        Me.txtYoutubeLikesNotice.Name = "txtYoutubeLikesNotice"
-        Me.txtYoutubeLikesNotice.Size = New System.Drawing.Size(353, 20)
-        Me.txtYoutubeLikesNotice.TabIndex = 8
-        Me.txtYoutubeLikesNotice.Text = "{title} has reached {count} likes on YouTube!  (The current daily average is {dai" &
-    "ly}.)  {link}"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 100)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(69, 13)
-        Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Likes Notice:"
-        '
-        'txtYoutubeViewsNotice
-        '
-        Me.txtYoutubeViewsNotice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtYoutubeViewsNotice.Location = New System.Drawing.Point(84, 71)
-        Me.txtYoutubeViewsNotice.MaxLength = 140
-        Me.txtYoutubeViewsNotice.Name = "txtYoutubeViewsNotice"
-        Me.txtYoutubeViewsNotice.Size = New System.Drawing.Size(353, 20)
-        Me.txtYoutubeViewsNotice.TabIndex = 7
-        Me.txtYoutubeViewsNotice.Text = "{title} has reached {count} views on YouTube!  (The current daily average is {dai" &
-    "ly}.)  {link}"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(6, 74)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(72, 13)
-        Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Views Notice:"
         '
         'Label6
         '
@@ -163,9 +96,9 @@ Partial Class EditSettings
         '
         Me.txtYoutubeApiKey.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtYoutubeApiKey.Location = New System.Drawing.Point(156, 19)
+        Me.txtYoutubeApiKey.Location = New System.Drawing.Point(112, 19)
         Me.txtYoutubeApiKey.Name = "txtYoutubeApiKey"
-        Me.txtYoutubeApiKey.Size = New System.Drawing.Size(281, 20)
+        Me.txtYoutubeApiKey.Size = New System.Drawing.Size(325, 20)
         Me.txtYoutubeApiKey.TabIndex = 5
         '
         'PictureBox2
@@ -219,15 +152,15 @@ Partial Class EditSettings
         '
         Me.txtSpotifyEndpoint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSpotifyEndpoint.Location = New System.Drawing.Point(151, 19)
+        Me.txtSpotifyEndpoint.Location = New System.Drawing.Point(116, 19)
         Me.txtSpotifyEndpoint.Name = "txtSpotifyEndpoint"
-        Me.txtSpotifyEndpoint.Size = New System.Drawing.Size(286, 20)
+        Me.txtSpotifyEndpoint.Size = New System.Drawing.Size(321, 20)
         Me.txtSpotifyEndpoint.TabIndex = 1
         '
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(12, 379)
+        Me.btnSave.Location = New System.Drawing.Point(12, 352)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 10
@@ -238,7 +171,7 @@ Partial Class EditSettings
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(380, 379)
+        Me.btnCancel.Location = New System.Drawing.Point(380, 352)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 11
@@ -247,15 +180,13 @@ Partial Class EditSettings
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.txtSpotifyStreamsNotice)
-        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.txtSpotifyEndpoint)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 63)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(443, 71)
-        Me.GroupBox1.TabIndex = 12
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Spotify"
         '
@@ -270,10 +201,10 @@ Partial Class EditSettings
         Me.GroupBox3.Controls.Add(Me.Label4)
         Me.GroupBox3.Controls.Add(Me.txtTwitterAppSecret)
         Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 89)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 140)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(443, 123)
-        Me.GroupBox3.TabIndex = 13
+        Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Twitter"
         '
@@ -311,49 +242,52 @@ Partial Class EditSettings
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.txtYouTubeSubsNotice)
-        Me.GroupBox4.Controls.Add(Me.Label7)
-        Me.GroupBox4.Controls.Add(Me.txtYoutubeLikesNotice)
         Me.GroupBox4.Controls.Add(Me.txtYoutubeApiKey)
-        Me.GroupBox4.Controls.Add(Me.Label9)
         Me.GroupBox4.Controls.Add(Me.PictureBox3)
-        Me.GroupBox4.Controls.Add(Me.txtYoutubeViewsNotice)
         Me.GroupBox4.Controls.Add(Me.Label6)
-        Me.GroupBox4.Controls.Add(Me.Label8)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 218)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 269)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(443, 149)
-        Me.GroupBox4.TabIndex = 14
+        Me.GroupBox4.Size = New System.Drawing.Size(443, 71)
+        Me.GroupBox4.TabIndex = 3
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "YouTube"
         '
-        'txtYouTubeSubsNotice
+        'GroupBox2
         '
-        Me.txtYouTubeSubsNotice.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtYouTubeSubsNotice.Location = New System.Drawing.Point(84, 123)
-        Me.txtYouTubeSubsNotice.MaxLength = 140
-        Me.txtYouTubeSubsNotice.Name = "txtYouTubeSubsNotice"
-        Me.txtYouTubeSubsNotice.Size = New System.Drawing.Size(353, 20)
-        Me.txtYouTubeSubsNotice.TabIndex = 9
-        Me.txtYouTubeSubsNotice.Text = "{title} has reached {count} subscribers on YouTube!  (The current daily average i" &
-    "s {daily}.)  {link}"
+        Me.GroupBox2.Controls.Add(Me.txtConnectionString)
+        Me.GroupBox2.Controls.Add(Me.Label7)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(443, 45)
+        Me.GroupBox2.TabIndex = 0
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Database"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 126)
+        Me.Label7.Location = New System.Drawing.Point(6, 22)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(68, 13)
-        Me.Label7.TabIndex = 10
-        Me.Label7.Text = "Subs Notice:"
+        Me.Label7.Size = New System.Drawing.Size(91, 13)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "ConnectionString:"
+        '
+        'txtConnectionString
+        '
+        Me.txtConnectionString.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtConnectionString.Location = New System.Drawing.Point(103, 19)
+        Me.txtConnectionString.Name = "txtConnectionString"
+        Me.txtConnectionString.Size = New System.Drawing.Size(334, 20)
+        Me.txtConnectionString.TabIndex = 2
         '
         'EditSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(467, 414)
+        Me.ClientSize = New System.Drawing.Size(467, 387)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox1)
@@ -374,6 +308,8 @@ Partial Class EditSettings
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -390,12 +326,6 @@ Partial Class EditSettings
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents txtYoutubeLikesNotice As TextBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents txtYoutubeViewsNotice As TextBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents txtSpotifyStreamsNotice As TextBox
-    Friend WithEvents Label10 As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
@@ -403,6 +333,7 @@ Partial Class EditSettings
     Friend WithEvents Label2 As Label
     Friend WithEvents txtTwitterUserSecret As TextBox
     Friend WithEvents txtTwitterUserToken As TextBox
-    Friend WithEvents txtYouTubeSubsNotice As TextBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents txtConnectionString As TextBox
     Friend WithEvents Label7 As Label
 End Class

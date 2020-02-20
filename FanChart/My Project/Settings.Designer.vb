@@ -68,19 +68,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{title} has reached {count} streams on Spotify!  (The current daily average is {d"& _ 
-            "aily}.)  {link}")>  _
-        Public Property SpotifyStreamsNotice() As String
-            Get
-                Return CType(Me("SpotifyStreamsNotice"),String)
-            End Get
-            Set
-                Me("SpotifyStreamsNotice") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property TwitterUserToken() As String
             Get
@@ -117,32 +104,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{title} has reached {count} views on YouTube!  (The current daily average is {dai"& _ 
-            "ly}.)  {link}")>  _
-        Public Property YoutubeViewsNotice() As String
-            Get
-                Return CType(Me("YoutubeViewsNotice"),String)
-            End Get
-            Set
-                Me("YoutubeViewsNotice") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{title} has reached {count} likes on YouTube!  (The current daily average is {dai"& _ 
-            "ly}.)  {link}")>  _
-        Public Property YoutubeLikesNotice() As String
-            Get
-                Return CType(Me("YoutubeLikesNotice"),String)
-            End Get
-            Set
-                Me("YoutubeLikesNotice") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property TwitterAppToken() As String
             Get
@@ -167,14 +128,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{title} has reached {count} subscribers on YouTube!  (The current daily average i"& _ 
-            "s {daily}.)  {link}")>  _
-        Public Property YoutubeSubsNotice() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ConnectionString() As String
             Get
-                Return CType(Me("YoutubeSubsNotice"),String)
+                Return CType(Me("ConnectionString"),String)
             End Get
             Set
-                Me("YoutubeSubsNotice") = value
+                Me("ConnectionString") = value
             End Set
         End Property
     End Class

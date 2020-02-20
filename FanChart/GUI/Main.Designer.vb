@@ -31,21 +31,20 @@ Partial Class Main
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.RemoveCurrentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lstSources = New System.Windows.Forms.ListView()
-        Me.colSource = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colTitle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colProperty = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colCount = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colDaily = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colUpdated = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colSynced = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lstMonitoredItems = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -53,7 +52,7 @@ Partial Class Main
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SyncToolStripMenuItem, Me.AddToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(915, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(786, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -101,71 +100,29 @@ Partial Class Main
         Me.AddToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.AddToolStripMenuItem.Text = "&List"
         '
+        'AddResourceToolStripMenuItem
+        '
+        Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
+        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.AddResourceToolStripMenuItem.Text = "Add Resource..."
+        '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
         '
         'RemoveCurrentToolStripMenuItem
         '
         Me.RemoveCurrentToolStripMenuItem.Name = "RemoveCurrentToolStripMenuItem"
-        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.RemoveCurrentToolStripMenuItem.Text = "&Remove Selected"
-        '
-        'lstSources
-        '
-        Me.lstSources.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lstSources.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colSource, Me.colTitle, Me.colProperty, Me.colCount, Me.colDaily, Me.colUpdated, Me.colSynced})
-        Me.lstSources.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lstSources.Location = New System.Drawing.Point(0, 24)
-        Me.lstSources.Name = "lstSources"
-        Me.lstSources.Size = New System.Drawing.Size(915, 478)
-        Me.lstSources.TabIndex = 1
-        Me.lstSources.UseCompatibleStateImageBehavior = False
-        Me.lstSources.View = System.Windows.Forms.View.Details
-        '
-        'colSource
-        '
-        Me.colSource.Text = "Source"
-        Me.colSource.Width = 200
-        '
-        'colTitle
-        '
-        Me.colTitle.Text = "Title"
-        Me.colTitle.Width = 175
-        '
-        'colProperty
-        '
-        Me.colProperty.Text = "Property"
-        '
-        'colCount
-        '
-        Me.colCount.Text = "Count"
-        Me.colCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.colCount.Width = 100
-        '
-        'colDaily
-        '
-        Me.colDaily.Text = "Daily Average"
-        Me.colDaily.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.colDaily.Width = 100
-        '
-        'colUpdated
-        '
-        Me.colUpdated.Text = "Updated"
-        Me.colUpdated.Width = 140
-        '
-        'colSynced
-        '
-        Me.colSynced.Text = "Synced"
-        Me.colSynced.Width = 140
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 502)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(915, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(786, 22)
         Me.StatusStrip1.TabIndex = 2
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -175,18 +132,57 @@ Partial Class Main
         Me.lblStatus.Size = New System.Drawing.Size(39, 17)
         Me.lblStatus.Text = "Ready"
         '
-        'AddResourceToolStripMenuItem
+        'lstMonitoredItems
         '
-        Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
-        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.AddResourceToolStripMenuItem.Text = "Add Resource..."
+        Me.lstMonitoredItems.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.lstMonitoredItems.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstMonitoredItems.HideSelection = False
+        Me.lstMonitoredItems.Location = New System.Drawing.Point(3, 16)
+        Me.lstMonitoredItems.Name = "lstMonitoredItems"
+        Me.lstMonitoredItems.Size = New System.Drawing.Size(756, 453)
+        Me.lstMonitoredItems.TabIndex = 3
+        Me.lstMonitoredItems.UseCompatibleStateImageBehavior = False
+        Me.lstMonitoredItems.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Site:Type"
+        Me.ColumnHeader1.Width = 100
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Identifier"
+        Me.ColumnHeader2.Width = 180
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Property"
+        Me.ColumnHeader3.Width = 70
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.lstMonitoredItems)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(762, 472)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Monitored Items:"
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Title"
+        Me.ColumnHeader4.Width = 400
         '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(915, 524)
-        Me.Controls.Add(Me.lstSources)
+        Me.ClientSize = New System.Drawing.Size(786, 524)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -197,6 +193,7 @@ Partial Class Main
         Me.MenuStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -206,21 +203,19 @@ Partial Class Main
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents lstSources As ListView
-    Friend WithEvents colSource As ColumnHeader
-    Friend WithEvents colTitle As ColumnHeader
-    Friend WithEvents colCount As ColumnHeader
-    Friend WithEvents colDaily As ColumnHeader
-    Friend WithEvents colUpdated As ColumnHeader
     Friend WithEvents SyncToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RunNowToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents RemoveCurrentToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents colProperty As ColumnHeader
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents lblStatus As ToolStripStatusLabel
-    Friend WithEvents colSynced As ColumnHeader
     Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lstMonitoredItems As ListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents ColumnHeader4 As ColumnHeader
 End Class
