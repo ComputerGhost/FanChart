@@ -2,6 +2,8 @@
 
 Public Class EngineProcess
 
+    Event RecoverableExceptionThrown(moduleName As String, ex As Exception)
+
     Async Function ProcessAllAsync() As Task
         Await SyncToDatabaseAsync()
         ProcessNumbers()
@@ -9,9 +11,14 @@ Public Class EngineProcess
     End Function
 
     Async Function SyncToDatabaseAsync() As Task
-        Await Task.WhenAll(
-            New SpotifySync().FetchAlbumStatsAsync(),
-            New YouTubeSync().FetchAllAsync())
+        Dim spotifyTask = New SpotifySync().FetchAlbumStatsAsync()
+        Dim youtubeTask = New YouTubeSync().FetchAllAsync()
+        Try
+            Await Task.WhenAll(spotifyTask, youtubeTask)
+        Catch ex As Exception
+            HandleAggregateExceptions("SpotifySync", spotifyTask.Exception)
+            HandleAggregateExceptions("YouTubeSync", youtubeTask.Exception)
+        End Try
     End Function
 
     Sub ProcessNumbers()
@@ -41,13 +48,14 @@ Public Class EngineProcess
                         .PropertyId = dReader("property_id"),
                         .TheirId = dReader("their_id"),
                         .Site = dReader("site"),
+                        .Type = dReader("type"),
                         .Title = dReader("title"),
                         .Url = dReader("url"),
                         .PropertyName = dReader("property"),
                         .CurrentCount = dReader("current_count"),
-                        .CurrentDaily = If(IsDBNull(dReader("current_daily")), Nothing, dReader("current_daily")),
+                        .CurrentDaily = If(IsDBNull(dReader("current_daily")), Nothing, CInt(dReader("current_daily"))),
                         .NewCount = dReader("new_count"),
-                        .NewDaily = If(IsDBNull(dReader("new_daily")), Nothing, dReader("new_daily"))
+                        .NewDaily = If(IsDBNull(dReader("new_daily")), Nothing, CInt(dReader("new_daily")))
                     })
                 End While
             End Using
@@ -102,7 +110,23 @@ Public Class EngineProcess
     End Sub
 
     Async Function SendTweetsAsync() As Task
-        Await New TwitterSync().SendQueuedTweetsAsync()
+        Try
+            Await New TwitterSync().SendQueuedTweetsAsync()
+        Catch ex As Exception
+            HandleException("TwitterSync", ex)
+        End Try
     End Function
+
+
+    Private Sub HandleAggregateExceptions(moduleName As String, ex As AggregateException)
+        If ex?.InnerExceptions Is Nothing Then Exit Sub
+        For Each innerException In ex.InnerExceptions
+            RaiseEvent RecoverableExceptionThrown(moduleName, innerException)
+        Next
+    End Sub
+
+    Private Sub HandleException(moduleName As String, ex As Exception)
+        RaiseEvent RecoverableExceptionThrown(moduleName, ex)
+    End Sub
 
 End Class

@@ -16,19 +16,22 @@ Public Class Main
     Private Async Sub RunNowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunNowToolStripMenuItem.Click
         Try
             RunNowToolStripMenuItem.Enabled = False
+            LogText("Running...")
             lblStatus.Text = "Running..."
 
             Dim process As New EngineProcess
-            Await process.SyncToDatabaseAsync()
+            AddHandler process.RecoverableExceptionThrown, AddressOf LogException
+            'Await process.SyncToDatabaseAsync()
             process.ProcessNumbers()
 
             RunNowToolStripMenuItem.Enabled = True
+            LogText("Completed.")
             lblStatus.Text = "Completed"
 
         Catch ex As Exception
             RunNowToolStripMenuItem.Enabled = True
+            LogException("EngineProcess", ex)
             lblStatus.Text = "Error: " & ex.Message
-            MessageBox.Show(ex.ToString())
         End Try
     End Sub
 
@@ -47,6 +50,16 @@ Public Class Main
         For Each item In removingItems
             RemoveItem(item)
         Next
+    End Sub
+
+
+    Private Sub LogException(moduleName As String, ex As Exception)
+        LogText(String.Format("Error in `{0}`: {1}{2}Stacktrace: {3}", moduleName, ex.Message, vbCrLf, ex.StackTrace))
+    End Sub
+
+    Private Sub LogText(text As String)
+        Dim timestamp = Now.ToString("yyyy-MM-dd HH:mm:ss")
+        txtLog.AppendText(String.Format("{0}: {1}{2}{2}", timestamp, text, vbCrLf))
     End Sub
 
 
