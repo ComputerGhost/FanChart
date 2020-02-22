@@ -77,7 +77,7 @@ Public Class EngineProcess
             For Each item In items
                 cmd.Parameters("propertyId").Value = item.PropertyId
                 cmd.Parameters("newCount").Value = item.NewCount
-                cmd.Parameters("newDaily").Value = item.NewDaily
+                cmd.Parameters("newDaily").Value = If(item.NewDaily.HasValue, item.NewDaily, DBNull.Value)
                 cmd.ExecuteNonQuery()
             Next
 
