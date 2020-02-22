@@ -21,11 +21,13 @@ Public Class EngineProcess
 
         ' Now we can sync in the new data
         Dim spotifyTask = New SpotifySync().FetchAlbumStatsAsync()
+        Dim twitterTask = New TwitterSync().FetchUserStatsAsync()
         Dim youtubeTask = New YouTubeSync().FetchAllAsync()
         Try
-            Await Task.WhenAll(spotifyTask, youtubeTask)
+            Await Task.WhenAll(spotifyTask, twitterTask, youtubeTask)
         Catch ex As Exception
             HandleAggregateExceptions("SpotifySync", spotifyTask.Exception)
+            HandleAggregateExceptions("TwitterSync", twitterTask.Exception)
             HandleAggregateExceptions("YouTubeSync", youtubeTask.Exception)
         End Try
 

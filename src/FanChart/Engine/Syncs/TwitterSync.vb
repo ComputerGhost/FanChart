@@ -5,6 +5,17 @@ Public Class TwitterSync
 
     Property Service As New TwitterAPI
 
+    Async Function FetchUserStatsAsync() As Task
+        For Each id In GetMonitoredIdsFor("Twitter", "Account")
+            Dim info = Await New TwitterAPI().GetUserAsync(id.TheirId)
+            If info.followers_count > 0 Then
+                SaveUpdate(id.OurId, "Followers", info.followers_count)
+            End If
+
+            Await Task.Delay(1000)
+        Next
+    End Function
+
     Async Function SendQueuedTweetsAsync() As Task
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()

@@ -55,7 +55,7 @@ Partial Class Main
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SyncToolStripMenuItem, Me.AddToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(786, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(914, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -82,18 +82,18 @@ Partial Class Main
         'RunNowToolStripMenuItem
         '
         Me.RunNowToolStripMenuItem.Name = "RunNowToolStripMenuItem"
-        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(122, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.SettingsToolStripMenuItem.Text = "&Settings..."
         '
         'AddToolStripMenuItem
@@ -125,7 +125,7 @@ Partial Class Main
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 502)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(786, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(914, 22)
         Me.StatusStrip1.TabIndex = 2
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -142,7 +142,7 @@ Partial Class Main
         Me.lstMonitoredItems.HideSelection = False
         Me.lstMonitoredItems.Location = New System.Drawing.Point(3, 16)
         Me.lstMonitoredItems.Name = "lstMonitoredItems"
-        Me.lstMonitoredItems.Size = New System.Drawing.Size(376, 453)
+        Me.lstMonitoredItems.Size = New System.Drawing.Size(516, 453)
         Me.lstMonitoredItems.TabIndex = 3
         Me.lstMonitoredItems.UseCompatibleStateImageBehavior = False
         Me.lstMonitoredItems.View = System.Windows.Forms.View.Details
@@ -172,9 +172,9 @@ Partial Class Main
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.lstMonitoredItems)
-        Me.GroupBox1.Location = New System.Drawing.Point(392, 27)
+        Me.GroupBox1.Location = New System.Drawing.Point(380, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(382, 472)
+        Me.GroupBox1.Size = New System.Drawing.Size(522, 472)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Monitored Items:"
@@ -187,7 +187,7 @@ Partial Class Main
         Me.GroupBox2.Controls.Add(Me.txtLog)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(374, 469)
+        Me.GroupBox2.Size = New System.Drawing.Size(362, 469)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Recent Logs:"
@@ -199,14 +199,14 @@ Partial Class Main
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(368, 450)
+        Me.txtLog.Size = New System.Drawing.Size(356, 450)
         Me.txtLog.TabIndex = 0
         '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(786, 524)
+        Me.ClientSize = New System.Drawing.Size(914, 524)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)

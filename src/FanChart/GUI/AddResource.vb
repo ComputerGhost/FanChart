@@ -16,21 +16,26 @@ Public Class AddResource
     Private Async Sub btnLoad_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
         Dim info = GetAssetUrlInfo(txtURL.Text)
         Select Case info?.type
+            Case AssetUrlType.TwitterAccount
+                txtTitle.Text = Await GetTwitterAccountName(info.identifier)
             Case AssetUrlType.YouTubeChannel
-                txtTitle.Text = Await GetChannelTitleAsync(info.identifier)
+                txtTitle.Text = Await GetYouTubeChannelTitleAsync(info.identifier)
             Case AssetUrlType.YouTubeVideo
-                txtTitle.Text = Await GetVideoTitleAsync(info.identifier)
+                txtTitle.Text = Await GetYouTubeVideoTitleAsync(info.identifier)
         End Select
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Async Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim info = GetAssetUrlInfo(txtURL.Text)
         Select Case info?.type
 
             Case AssetUrlType.SpotifyAlbum
-                For Each track In New SpotifyAPI().GetAlbumPlayCountAsync(info.identifier).Result
-                    AddItem("Spotify", "Song", info.identifier, "Plays", txtTitle.Text, txtURL.Text)
+                For Each track In Await New SpotifyAPI().GetAlbumPlayCountAsync(info.identifier)
+                    AddItem("Spotify", "Song", info.identifier, "Plays", track.name, txtURL.Text)
                 Next
+
+            Case AssetUrlType.TwitterAccount
+                AddItem("Twitter", "Account", info.identifier, "Followers", txtTitle.Text, txtURL.Text)
 
             Case AssetUrlType.YouTubeChannel
                 AddItem("YouTube", "Channel", info.identifier, "Subscribers", txtTitle.Text, txtURL.Text)
@@ -50,7 +55,8 @@ Public Class AddResource
 
         Dim uri As Uri = Nothing
         If Uri.TryCreate(txtURL.Text.ToLower, UriKind.Absolute, uri) Then
-            If {"youtu.be", "youtube.com", "www.youtube.com"}.Contains(uri.Host) Then
+            Dim supportsTitle = {"twitter.com", "youtu.be", "youtube.com", "www.youtube.com"}
+            If supportsTitle.Contains(uri.Host) Then
                 txtTitle.Enabled = True
                 btnLoad.Enabled = True
             End If
@@ -96,6 +102,7 @@ Public Class AddResource
 
     Private Enum AssetUrlType
         SpotifyAlbum
+        TwitterAccount
         YouTubeChannel
         YouTubeVideo
     End Enum
@@ -115,6 +122,15 @@ Public Class AddResource
         If Not Uri.TryCreate(url, UriKind.Absolute, uri) Then Return Nothing
 
         Select Case uri.Host
+
+            Case "open.spotify.com"
+                If uri.Segments.Count <> 3 Then Return Nothing
+                Return New AssetUrlInfo(AssetUrlType.SpotifyAlbum, uri.Segments(2))
+
+            Case "twitter.com"
+                If uri.Segments.Count <> 2 Then Return Nothing
+                Return New AssetUrlInfo(AssetUrlType.TwitterAccount, uri.Segments(1))
+
             Case "youtu.be"
                 If uri.Segments.Count <> 2 Then Return Nothing
                 Return New AssetUrlInfo(AssetUrlType.YouTubeVideo, uri.Segments(1))
@@ -129,19 +145,20 @@ Public Class AddResource
                     Return New AssetUrlInfo(AssetUrlType.YouTubeVideo, parameters("v"))
                 End If
 
-            Case "open.spotify.com"
-                If uri.Segments.Count <> 3 Then Return Nothing
-                Return New AssetUrlInfo(AssetUrlType.SpotifyAlbum, uri.Segments(2))
-
         End Select
 
         Return Nothing
     End Function
 
 
-    ' YouTube helpers
+    ' Getting titles
 
-    Private Async Function GetChannelTitleAsync(channelId As String) As Task(Of String)
+    Private Async Function GetTwitterAccountName(username As String) As Task(Of String)
+        Dim info = Await New TwitterAPI().GetUserAsync(username)
+        Return info.name
+    End Function
+
+    Private Async Function GetYouTubeChannelTitleAsync(channelId As String) As Task(Of String)
         Dim service As New YouTubeService(New BaseClientService.Initializer With {
             .ApiKey = My.Settings.YoutubeApiKey})
         Dim request = New ChannelsResource(service).List("snippet")
@@ -152,7 +169,7 @@ Public Class AddResource
         Return response.Items.First().Snippet.Title
     End Function
 
-    Private Async Function GetVideoTitleAsync(videoId As String) As Task(Of String)
+    Private Async Function GetYouTubeVideoTitleAsync(videoId As String) As Task(Of String)
         Dim service As New YouTubeService(New BaseClientService.Initializer With {
             .ApiKey = My.Settings.YoutubeApiKey})
         Dim request = New VideosResource(service).List("snippet")
