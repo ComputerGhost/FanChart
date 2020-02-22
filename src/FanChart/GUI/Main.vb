@@ -21,9 +21,7 @@ Public Class Main
 
             Dim process As New EngineProcess
             AddHandler process.RecoverableExceptionThrown, AddressOf LogException
-            Await process.SyncToDatabaseAsync()
-            process.ProcessNumbers()
-            Await process.SendTweetsAsync()
+            Await process.ProcessAllAsync()
 
             RunNowToolStripMenuItem.Enabled = True
             LogText("Completed.")
