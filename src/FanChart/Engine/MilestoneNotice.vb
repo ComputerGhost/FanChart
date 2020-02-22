@@ -18,7 +18,7 @@ Public Class MilestoneNotice
             Case "count" : Return FormatNumber(Item.NewCount)
             Case "daily" : Return FormatNumber(Item.NewDaily)
             Case "link" : Return Item.Url
-            Case "tags" : Return "#EXID"
+            Case "tags" : Return My.Settings.TwitterTags
         End Select
         Return ""
     End Function
