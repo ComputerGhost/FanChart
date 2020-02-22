@@ -77,6 +77,7 @@ Public Class AddResource
             Dim monitoredId = cmd.ExecuteScalar()
             If monitoredId Is Nothing Then
                 cmd.CommandText = "INSERT INTO monitored_items (site,their_id,type,title,url) VALUES (@site,@theirId,@type,@title,@url);"
+                cmd.ExecuteNonQuery()
                 monitoredId = cmd.LastInsertedId()
             End If
             cmd.Parameters("monitoredId").Value = monitoredId

@@ -11,6 +11,15 @@ Public Class EngineProcess
     End Function
 
     Async Function SyncToDatabaseAsync() As Task
+
+        ' First we need to clean up any old data
+        Using connection As New MySqlConnection(My.Settings.ConnectionString)
+            connection.Open()
+            Dim cmd As New MySqlCommand("DELETE FROM sync_history WHERE processed=0", connection)
+            cmd.ExecuteNonQuery()
+        End Using
+
+        ' Now we can sync in the new data
         Dim spotifyTask = New SpotifySync().FetchAlbumStatsAsync()
         Dim youtubeTask = New YouTubeSync().FetchAllAsync()
         Try
@@ -19,6 +28,7 @@ Public Class EngineProcess
             HandleAggregateExceptions("SpotifySync", spotifyTask.Exception)
             HandleAggregateExceptions("YouTubeSync", youtubeTask.Exception)
         End Try
+
     End Function
 
     Sub ProcessNumbers()
@@ -52,7 +62,7 @@ Public Class EngineProcess
                         .Title = dReader("title"),
                         .Url = dReader("url"),
                         .PropertyName = dReader("property"),
-                        .CurrentCount = dReader("current_count"),
+                        .CurrentCount = If(IsDBNull(dReader("current_count")), Nothing, CInt(dReader("current_count"))),
                         .CurrentDaily = If(IsDBNull(dReader("current_daily")), Nothing, CInt(dReader("current_daily"))),
                         .NewCount = dReader("new_count"),
                         .NewDaily = If(IsDBNull(dReader("new_daily")), Nothing, CInt(dReader("new_daily")))
@@ -78,6 +88,9 @@ Public Class EngineProcess
                   AND @newDaily BETWEEN min_delta+1 AND max_delta
                 ORDER BY count,min_delta LIMIT 1"
             For Each item In items
+                If item.IsNew Then
+                    Continue For
+                End If
                 cmd.Parameters("site").Value = item.Site
                 cmd.Parameters("property").Value = item.PropertyName
                 cmd.Parameters("newCount").Value = item.NewCount

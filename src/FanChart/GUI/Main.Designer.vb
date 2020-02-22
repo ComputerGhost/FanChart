@@ -181,8 +181,9 @@ Partial Class Main
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.txtLog)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox2.Name = "GroupBox2"
@@ -197,6 +198,7 @@ Partial Class Main
         Me.txtLog.Location = New System.Drawing.Point(3, 16)
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
+        Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtLog.Size = New System.Drawing.Size(368, 450)
         Me.txtLog.TabIndex = 0
         '

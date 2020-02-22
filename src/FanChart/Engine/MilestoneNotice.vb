@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Globalization
+Imports System.Text.RegularExpressions
 
 Public Class MilestoneNotice
 
@@ -14,12 +15,18 @@ Public Class MilestoneNotice
     Private Function ParameterMatchEvaluator(match As Match) As String
         Select Case match.Groups(1).Value
             Case "title" : Return Item.Title
-            Case "count" : Return Item.NewCount
-            Case "daily" : Return Item.NewDaily
+            Case "count" : Return FormatNumber(Item.NewCount)
+            Case "daily" : Return FormatNumber(Item.NewDaily)
             Case "link" : Return Item.Url
             Case "tags" : Return "#EXID"
         End Select
         Return ""
+    End Function
+
+    Private Function FormatNumber(number As Integer) As String
+        Dim nfi As NumberFormatInfo = CultureInfo.InvariantCulture.NumberFormat.Clone()
+        nfi.NumberGroupSeparator = " "
+        Return number.ToString("n", nfi)
     End Function
 
 End Class
