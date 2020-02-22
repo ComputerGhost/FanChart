@@ -31,7 +31,8 @@ Public Class AddResource
 
             Case AssetUrlType.SpotifyAlbum
                 For Each track In Await New SpotifyAPI().GetAlbumPlayCountAsync(info.identifier)
-                    AddItem("Spotify", "Song", info.identifier, "Plays", track.name, txtURL.Text)
+                    Dim songId = String.Format("{0}:{1}:{2}", info.identifier, track.disc, track.number)
+                    AddItem("Spotify", "Song", songId, "Plays", track.name, track.uri)
                 Next
 
             Case AssetUrlType.TwitterAccount
