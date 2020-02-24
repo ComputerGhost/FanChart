@@ -4,7 +4,7 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If String.IsNullOrEmpty(My.Settings.ConnectionString) Then
-            EditSettings.ShowDialog()
+            EditAccounts.ShowDialog()
         End If
         RefreshItems()
     End Sub
@@ -34,8 +34,8 @@ Public Class Main
         End Try
     End Sub
 
-    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
-        EditSettings.ShowDialog()
+    Private Sub AccountsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AccountsToolStripMenuItem.Click
+        EditAccounts.ShowDialog()
     End Sub
 
     Private Sub AddResourceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddResourceToolStripMenuItem.Click

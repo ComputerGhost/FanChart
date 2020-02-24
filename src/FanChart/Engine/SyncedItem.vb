@@ -1,5 +1,4 @@
 ﻿Public Structure SyncedItem
-    Property SyncId As Integer
     Property PropertyId As Integer
     Property TheirId As String
     Property Site As String

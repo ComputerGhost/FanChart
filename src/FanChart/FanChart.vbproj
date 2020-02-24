@@ -127,10 +127,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Engine\EngineProcess.vb" />
-    <Compile Include="GUI\EditSettings.Designer.vb">
-      <DependentUpon>EditSettings.vb</DependentUpon>
+    <Compile Include="GUI\EditAccounts.Designer.vb">
+      <DependentUpon>EditAccounts.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\EditSettings.vb">
+    <Compile Include="GUI\EditAccounts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\Main.Designer.vb">
@@ -165,8 +165,8 @@
     <EmbeddedResource Include="GUI\AddResource.resx">
       <DependentUpon>AddResource.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\EditSettings.resx">
-      <DependentUpon>EditSettings.vb</DependentUpon>
+    <EmbeddedResource Include="GUI\EditAccounts.resx">
+      <DependentUpon>EditAccounts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Main.resx">
       <DependentUpon>Main.vb</DependentUpon>

@@ -46,7 +46,6 @@ Public Class EngineProcess
                 New MySqlParameter("property", MySqlDbType.VarChar) With {.Value = ""},
                 New MySqlParameter("propertyId", MySqlDbType.Int32) With {.Value = 0},
                 New MySqlParameter("site", MySqlDbType.VarChar) With {.Value = ""},
-                New MySqlParameter("syncId", MySqlDbType.Int32) With {.Value = 0},
                 New MySqlParameter("text", MySqlDbType.VarChar) With {.Value = ""}
             })
 
@@ -55,8 +54,7 @@ Public Class EngineProcess
             cmd.CommandText = "SELECT * FROM latest_syncs"
             Using dReader = cmd.ExecuteReader()
                 While dReader.Read()
-                    items.Add(New SyncedItem With {
-                        .SyncId = dReader("sync_id"),
+                    Dim item = New SyncedItem With {
                         .PropertyId = dReader("property_id"),
                         .TheirId = dReader("their_id"),
                         .Site = dReader("site"),
@@ -64,35 +62,24 @@ Public Class EngineProcess
                         .Title = dReader("title"),
                         .Url = dReader("url"),
                         .PropertyName = dReader("property"),
-                        .CurrentCount = If(IsDBNull(dReader("current_count")), Nothing, CInt(dReader("current_count"))),
-                        .CurrentDaily = If(IsDBNull(dReader("current_daily")), Nothing, CInt(dReader("current_daily"))),
-                        .NewCount = dReader("new_count"),
-                        .NewDaily = If(IsDBNull(dReader("new_daily")), Nothing, CInt(dReader("new_daily")))
-                    })
+                        .NewCount = dReader("new_count")}
+                    If Not IsDBNull(dReader("current_count")) Then item.CurrentCount = dReader("current_count")
+                    If Not IsDBNull(dReader("current_daily")) Then item.CurrentDaily = dReader("current_daily")
+                    If Not IsDBNull(dReader("new_daily")) Then item.NewDaily = CInt(dReader("new_daily"))
+                    items.Add(item)
                 End While
             End Using
 
-            ' Save the updated info
-            cmd.CommandText = "UPDATE monitored_properties SET count=@newCount,daily=@newDaily WHERE id=@propertyId"
-            For Each item In items
-                cmd.Parameters("propertyId").Value = item.PropertyId
-                cmd.Parameters("newCount").Value = item.NewCount
-                cmd.Parameters("newDaily").Value = If(item.NewDaily.HasValue, item.NewDaily, DBNull.Value)
-                cmd.ExecuteNonQuery()
-            Next
-
             ' Process for milestones
             Dim milestones As New List(Of MilestoneNotice)
-            cmd.CommandText =
-                "SELECT template FROM milestones
+                cmd.CommandText =
+                    "SELECT template FROM milestones
                 WHERE site=@site AND property=@property
                   AND @newCount>count AND @currentCount<count
                   AND @newDaily BETWEEN min_delta+1 AND max_delta
                 ORDER BY count,min_delta LIMIT 1"
             For Each item In items
-                If item.IsNew Then
-                    Continue For
-                End If
+                If item.IsNew Then Continue For
                 cmd.Parameters("site").Value = item.Site
                 cmd.Parameters("property").Value = item.PropertyName
                 cmd.Parameters("newCount").Value = item.NewCount
@@ -102,24 +89,35 @@ Public Class EngineProcess
                 If template IsNot Nothing Then
                     milestones.Add(New MilestoneNotice With {
                         .Item = item,
-                        .Template = template
-                    })
+                        .Template = template})
                 End If
             Next
 
-            ' Enqueue the milestone tweets
-            cmd.CommandText = "INSERT INTO queued_tweets (text) VALUES (@text)"
-            For Each milestone In milestones
-                cmd.Parameters("text").Value = milestone.FormatForTweet()
-                cmd.ExecuteNonQuery()
-            Next
+            ' Doing all writing in a transaction so we can recover on error
+            Using transaction = connection.BeginTransaction()
 
-            ' Mark the sync as complete
-            cmd.CommandText = "UPDATE sync_history SET processed=1 WHERE id=@syncId"
-            For Each item In items
-                cmd.Parameters("syncId").Value = item.SyncId
+                ' Save the updated info
+                cmd.CommandText = "UPDATE monitored_properties SET count=@newCount,daily=@newDaily WHERE id=@propertyId"
+                For Each item In items
+                    cmd.Parameters("propertyId").Value = item.PropertyId
+                    cmd.Parameters("newCount").Value = item.NewCount
+                    cmd.Parameters("newDaily").Value = If(item.NewDaily.HasValue, item.NewDaily, DBNull.Value)
+                    cmd.ExecuteNonQuery()
+                Next
+
+                ' Mark all syncs as complete
+                cmd.CommandText = "UPDATE sync_history SET processed=1"
                 cmd.ExecuteNonQuery()
-            Next
+
+                ' Enqueue the milestone tweets
+                cmd.CommandText = "INSERT INTO queued_tweets (text) VALUES (@text)"
+                For Each milestone In milestones
+                    cmd.Parameters("text").Value = milestone.FormatForTweet()
+                    cmd.ExecuteNonQuery()
+                Next
+
+                transaction.Commit()
+            End Using
 
         End Using
     End Sub

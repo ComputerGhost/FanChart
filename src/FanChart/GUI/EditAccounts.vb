@@ -1,4 +1,4 @@
-﻿Public Class EditSettings
+﻿Public Class EditAccounts
 
     Private Sub EditSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         With My.Settings

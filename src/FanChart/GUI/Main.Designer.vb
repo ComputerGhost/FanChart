@@ -25,11 +25,11 @@ Partial Class Main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RunNowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
@@ -44,10 +44,15 @@ Partial Class Main
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtLog = New System.Windows.Forms.TextBox()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -61,20 +66,31 @@ Partial Class Main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.ToolStripSeparator3, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
         '
+        'AccountsToolStripMenuItem
+        '
+        Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
+        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.AccountsToolStripMenuItem.Text = "&Accounts..."
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(130, 6)
+        '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'SyncToolStripMenuItem
         '
-        Me.SyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunNowToolStripMenuItem, Me.ToolStripSeparator1, Me.SettingsToolStripMenuItem})
+        Me.SyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunNowToolStripMenuItem})
         Me.SyncToolStripMenuItem.Name = "SyncToolStripMenuItem"
         Me.SyncToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.SyncToolStripMenuItem.Text = "&Sync"
@@ -82,19 +98,8 @@ Partial Class Main
         'RunNowToolStripMenuItem
         '
         Me.RunNowToolStripMenuItem.Name = "RunNowToolStripMenuItem"
-        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(122, 6)
-        '
-        'SettingsToolStripMenuItem
-        '
-        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
-        Me.SettingsToolStripMenuItem.Text = "&Settings..."
         '
         'AddToolStripMenuItem
         '
@@ -106,18 +111,18 @@ Partial Class Main
         'AddResourceToolStripMenuItem
         '
         Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
-        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AddResourceToolStripMenuItem.Text = "Add Resource..."
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'RemoveCurrentToolStripMenuItem
         '
         Me.RemoveCurrentToolStripMenuItem.Name = "RemoveCurrentToolStripMenuItem"
-        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RemoveCurrentToolStripMenuItem.Text = "&Remove Selected"
         '
         'StatusStrip1
@@ -139,10 +144,11 @@ Partial Class Main
         '
         Me.lstMonitoredItems.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.lstMonitoredItems.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstMonitoredItems.FullRowSelect = True
         Me.lstMonitoredItems.HideSelection = False
         Me.lstMonitoredItems.Location = New System.Drawing.Point(3, 16)
         Me.lstMonitoredItems.Name = "lstMonitoredItems"
-        Me.lstMonitoredItems.Size = New System.Drawing.Size(516, 453)
+        Me.lstMonitoredItems.Size = New System.Drawing.Size(598, 459)
         Me.lstMonitoredItems.TabIndex = 3
         Me.lstMonitoredItems.UseCompatibleStateImageBehavior = False
         Me.lstMonitoredItems.View = System.Windows.Forms.View.Details
@@ -160,7 +166,7 @@ Partial Class Main
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "Property"
-        Me.ColumnHeader3.Width = 70
+        Me.ColumnHeader3.Width = 100
         '
         'ColumnHeader4
         '
@@ -169,25 +175,22 @@ Partial Class Main
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.lstMonitoredItems)
-        Me.GroupBox1.Location = New System.Drawing.Point(380, 27)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(522, 472)
+        Me.GroupBox1.Size = New System.Drawing.Size(604, 478)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Monitored Items:"
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.txtLog)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 27)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(362, 469)
+        Me.GroupBox2.Size = New System.Drawing.Size(304, 478)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Recent Logs:"
@@ -199,16 +202,33 @@ Partial Class Main
         Me.txtLog.Multiline = True
         Me.txtLog.Name = "txtLog"
         Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(356, 450)
+        Me.txtLog.Size = New System.Drawing.Size(298, 459)
         Me.txtLog.TabIndex = 0
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 24)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox2)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(914, 478)
+        Me.SplitContainer1.SplitterDistance = 304
+        Me.SplitContainer1.SplitterWidth = 6
+        Me.SplitContainer1.TabIndex = 6
         '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 524)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -222,6 +242,10 @@ Partial Class Main
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -233,8 +257,6 @@ Partial Class Main
     Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SyncToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RunNowToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents RemoveCurrentToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
@@ -243,9 +265,12 @@ Partial Class Main
     Friend WithEvents lstMonitoredItems As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
-    Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents txtLog As TextBox
+    Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents AccountsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
 End Class
