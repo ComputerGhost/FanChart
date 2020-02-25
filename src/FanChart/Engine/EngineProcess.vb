@@ -95,6 +95,7 @@ Public Class EngineProcess
 
             ' Doing all writing in a transaction so we can recover on error
             Using transaction = connection.BeginTransaction()
+                cmd.Transaction = transaction
 
                 ' Save the updated info
                 cmd.CommandText = "UPDATE monitored_properties SET count=@newCount,daily=@newDaily WHERE id=@propertyId"
