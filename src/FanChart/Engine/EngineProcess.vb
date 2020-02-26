@@ -72,13 +72,16 @@ Public Class EngineProcess
 
             ' Process for milestones
             Dim milestones As New List(Of MilestoneNotice)
-                cmd.CommandText =
-                    "SELECT template FROM milestones
+            cmd.CommandText =
+                "SELECT template FROM milestones
                 WHERE site=@site AND property=@property
-                  AND @newCount>count AND @currentCount<count
+                  AND @newCount>=count AND @currentCount<count
                   AND @newDaily BETWEEN min_delta+1 AND max_delta
                 ORDER BY count,min_delta LIMIT 1"
             For Each item In items
+                If item.PropertyId = 173 Then
+                    Dim x = 1
+                End If
                 If item.IsNew Then Continue For
                 cmd.Parameters("site").Value = item.Site
                 cmd.Parameters("property").Value = item.PropertyName

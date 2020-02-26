@@ -13,7 +13,7 @@
 
     ReadOnly Property IsNew As Boolean
         Get
-            Return CurrentCount.HasValue
+            Return Not CurrentCount.HasValue
         End Get
     End Property
 End Structure
