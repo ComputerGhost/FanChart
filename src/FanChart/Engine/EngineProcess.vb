@@ -79,9 +79,6 @@ Public Class EngineProcess
                   AND @newDaily BETWEEN min_delta+1 AND max_delta
                 ORDER BY count,min_delta LIMIT 1"
             For Each item In items
-                If item.PropertyId = 173 Then
-                    Dim x = 1
-                End If
                 If item.IsNew Then Continue For
                 cmd.Parameters("site").Value = item.Site
                 cmd.Parameters("property").Value = item.PropertyName
