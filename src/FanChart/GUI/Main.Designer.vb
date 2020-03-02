@@ -74,18 +74,18 @@ Partial Class Main
         'AccountsToolStripMenuItem
         '
         Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
-        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AccountsToolStripMenuItem.Text = "&Accounts..."
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(130, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'SyncToolStripMenuItem
@@ -112,7 +112,7 @@ Partial Class Main
         '
         Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
         Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.AddResourceToolStripMenuItem.Text = "Add Resource..."
+        Me.AddResourceToolStripMenuItem.Text = "&Add Resource..."
         '
         'ToolStripSeparator2
         '
