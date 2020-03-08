@@ -47,6 +47,7 @@ Public Class AddResource
 
         End Select
 
+        DialogResult = DialogResult.OK
         Close()
     End Sub
 

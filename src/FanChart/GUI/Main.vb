@@ -39,8 +39,9 @@ Public Class Main
     End Sub
 
     Private Sub AddResourceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddResourceToolStripMenuItem.Click
-        AddResource.ShowDialog()
-        RefreshItems()
+        If AddResource.ShowDialog() = DialogResult.OK Then
+            RefreshItems()
+        End If
     End Sub
 
     Private Sub RemoveSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveSelectedToolStripMenuItem.Click
@@ -74,8 +75,9 @@ Public Class Main
 
     Private Sub EditItem(listItem As ListViewItem)
         Dim itemId As Integer = listItem.Tag
-        EditResource.ShowDialog(itemId)
-        RefreshItems()
+        If EditResource.ShowDialog(itemId) = DialogResult.OK Then
+            RefreshItems()
+        End If
     End Sub
 
     Private Sub RefreshItems()

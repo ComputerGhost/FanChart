@@ -4,7 +4,7 @@ Public Class EditResource
 
     Property monitoredId As Integer
 
-    Overloads Sub ShowDialog(propertyId As Integer)
+    Overloads Function ShowDialog(propertyId As Integer) As DialogResult
 
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()
@@ -25,8 +25,8 @@ Public Class EditResource
 
         End Using
 
-        MyBase.ShowDialog()
-    End Sub
+        Return MyBase.ShowDialog()
+    End Function
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
@@ -43,6 +43,7 @@ Public Class EditResource
 
         End Using
 
+        DialogResult = DialogResult.OK
         Close()
 
     End Sub
