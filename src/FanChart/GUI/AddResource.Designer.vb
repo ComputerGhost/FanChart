@@ -108,6 +108,7 @@ Partial Class AddResource
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtURL)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "AddResource"
         Me.Text = "Add Resource"

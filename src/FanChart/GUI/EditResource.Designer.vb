@@ -142,6 +142,7 @@ Partial Class EditResource
         Me.Controls.Add(Me.txtUrl)
         Me.Controls.Add(Me.txtTitle)
         Me.Controls.Add(Me.txtType)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "EditResource"
         Me.Text = "Edit Resource"
