@@ -88,9 +88,9 @@ Public Class Main
             connection.Open()
 
             Dim cmd As New MySqlCommand(
-                "SELECT p.id,i.site,i.type,i.their_id,p.property,i.title
+                "SELECT p.id,i.site,i.type,i.their_id,p.property,i.title,i.url
                 FROM monitored_properties p LEFT JOIN monitored_items i ON i.id=p.monitored_id
-                ORDER BY i.site,i.type,i.their_id,p.property", connection)
+                ORDER BY i.site,i.type,i.title,p.property", connection)
 
             Dim dReader = cmd.ExecuteReader()
             While dReader.Read()
@@ -98,7 +98,8 @@ Public Class Main
                     String.Format("{0}:{1}", dReader("site"), dReader("type")),
                     dReader("their_id"),
                     dReader("property"),
-                    dReader("title")})
+                    dReader("title"),
+                    dReader("url")})
                 item.Tag = dReader("id")
                 lstMonitoredItems.Items.Add(item)
             End While

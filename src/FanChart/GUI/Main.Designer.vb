@@ -46,6 +46,7 @@ Partial Class Main
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtLog = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -107,30 +108,30 @@ Partial Class Main
         'RunNowToolStripMenuItem
         '
         Me.RunNowToolStripMenuItem.Name = "RunNowToolStripMenuItem"
-        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
         '
         'AddResourceToolStripMenuItem
         '
         Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
-        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.AddResourceToolStripMenuItem.Text = "&Add Resource..."
         '
         'EditSelectedToolStripMenuItem
         '
         Me.EditSelectedToolStripMenuItem.Name = "EditSelectedToolStripMenuItem"
-        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.EditSelectedToolStripMenuItem.Text = "&Edit Selected..."
         '
         'RemoveSelectedToolStripMenuItem
         '
         Me.RemoveSelectedToolStripMenuItem.Name = "RemoveSelectedToolStripMenuItem"
-        Me.RemoveSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RemoveSelectedToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.RemoveSelectedToolStripMenuItem.Text = "Remove Selected"
         '
         'StatusStrip1
@@ -150,7 +151,7 @@ Partial Class Main
         '
         'lstMonitoredItems
         '
-        Me.lstMonitoredItems.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.lstMonitoredItems.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5})
         Me.lstMonitoredItems.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstMonitoredItems.FullRowSelect = True
         Me.lstMonitoredItems.HideSelection = False
@@ -231,6 +232,11 @@ Partial Class Main
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 6
         '
+        'ColumnHeader5
+        '
+        Me.ColumnHeader5.Text = "Url"
+        Me.ColumnHeader5.Width = 400
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -282,4 +288,5 @@ Partial Class Main
     Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RemoveSelectedToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EditSelectedToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ColumnHeader5 As ColumnHeader
 End Class
