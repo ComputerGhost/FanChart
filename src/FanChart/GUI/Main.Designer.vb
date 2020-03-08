@@ -25,15 +25,15 @@ Partial Class Main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IdolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RunNowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.RemoveCurrentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lstMonitoredItems = New System.Windows.Forms.ListView()
@@ -45,6 +45,7 @@ Partial Class Main
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtLog = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.EditSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -57,7 +58,7 @@ Partial Class Main
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SyncToolStripMenuItem, Me.AddToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SettingsToolStripMenuItem, Me.SyncToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(914, 24)
@@ -66,31 +67,39 @@ Partial Class Main
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.ToolStripSeparator3, Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
         '
-        'AccountsToolStripMenuItem
-        '
-        Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
-        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.AccountsToolStripMenuItem.Text = "&Accounts..."
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
-        '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.IdolsToolStripMenuItem})
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
+        Me.SettingsToolStripMenuItem.Text = "&Settings"
+        '
+        'AccountsToolStripMenuItem
+        '
+        Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
+        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.AccountsToolStripMenuItem.Text = "&Accounts..."
+        '
+        'IdolsToolStripMenuItem
+        '
+        Me.IdolsToolStripMenuItem.Name = "IdolsToolStripMenuItem"
+        Me.IdolsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.IdolsToolStripMenuItem.Text = "&Idols..."
         '
         'SyncToolStripMenuItem
         '
-        Me.SyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunNowToolStripMenuItem})
+        Me.SyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunNowToolStripMenuItem, Me.ToolStripSeparator2, Me.AddResourceToolStripMenuItem, Me.EditSelectedToolStripMenuItem, Me.RemoveSelectedToolStripMenuItem})
         Me.SyncToolStripMenuItem.Name = "SyncToolStripMenuItem"
         Me.SyncToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.SyncToolStripMenuItem.Text = "&Sync"
@@ -101,12 +110,10 @@ Partial Class Main
         Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
         '
-        'AddToolStripMenuItem
+        'ToolStripSeparator2
         '
-        Me.AddToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddResourceToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoveCurrentToolStripMenuItem})
-        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.AddToolStripMenuItem.Text = "&List"
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'AddResourceToolStripMenuItem
         '
@@ -114,16 +121,11 @@ Partial Class Main
         Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AddResourceToolStripMenuItem.Text = "&Add Resource..."
         '
-        'ToolStripSeparator2
+        'RemoveSelectedToolStripMenuItem
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
-        '
-        'RemoveCurrentToolStripMenuItem
-        '
-        Me.RemoveCurrentToolStripMenuItem.Name = "RemoveCurrentToolStripMenuItem"
-        Me.RemoveCurrentToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.RemoveCurrentToolStripMenuItem.Text = "&Remove Selected"
+        Me.RemoveSelectedToolStripMenuItem.Name = "RemoveSelectedToolStripMenuItem"
+        Me.RemoveSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RemoveSelectedToolStripMenuItem.Text = "Remove Selected"
         '
         'StatusStrip1
         '
@@ -223,6 +225,12 @@ Partial Class Main
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 6
         '
+        'EditSelectedToolStripMenuItem
+        '
+        Me.EditSelectedToolStripMenuItem.Name = "EditSelectedToolStripMenuItem"
+        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EditSelectedToolStripMenuItem.Text = "&Edit Selected..."
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -254,14 +262,10 @@ Partial Class Main
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SyncToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RunNowToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents RemoveCurrentToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents lblStatus As ToolStripStatusLabel
-    Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents lstMonitoredItems As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
@@ -271,6 +275,11 @@ Partial Class Main
     Friend WithEvents txtLog As TextBox
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AccountsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents IdolsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemoveSelectedToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EditSelectedToolStripMenuItem As ToolStripMenuItem
 End Class

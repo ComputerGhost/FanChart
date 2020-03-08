@@ -43,12 +43,19 @@ Public Class Main
         RefreshItems()
     End Sub
 
-    Private Sub RemoveCurrentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveCurrentToolStripMenuItem.Click
+    Private Sub RemoveSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveSelectedToolStripMenuItem.Click
         Dim removingItems As New List(Of ListViewItem)
         removingItems.AddRange(lstMonitoredItems.SelectedItems)
         For Each item In removingItems
             RemoveItem(item)
         Next
+    End Sub
+
+    Private Sub EditSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditSelectedToolStripMenuItem.Click
+        If lstMonitoredItems.SelectedItems.Count = 0 Then Exit Sub
+        Dim itemId As Integer = lstMonitoredItems.SelectedItems(0).Tag
+        EditResource.ShowDialog(itemId)
+        RefreshItems()
     End Sub
 
 
@@ -117,5 +124,4 @@ Public Class Main
         ' Finally, remove the list item
         lstMonitoredItems.Items.Remove(listItem)
     End Sub
-
 End Class
