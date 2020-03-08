@@ -53,9 +53,12 @@ Public Class Main
 
     Private Sub EditSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditSelectedToolStripMenuItem.Click
         If lstMonitoredItems.SelectedItems.Count = 0 Then Exit Sub
-        Dim itemId As Integer = lstMonitoredItems.SelectedItems(0).Tag
-        EditResource.ShowDialog(itemId)
-        RefreshItems()
+        EditItem(lstMonitoredItems.SelectedItems(0))
+    End Sub
+
+    Private Sub lstMonitoredItems_DoubleClick(sender As Object, e As EventArgs) Handles lstMonitoredItems.DoubleClick
+        If lstMonitoredItems.SelectedItems.Count = 0 Then Exit Sub
+        EditItem(lstMonitoredItems.SelectedItems(0))
     End Sub
 
 
@@ -68,6 +71,12 @@ Public Class Main
         txtLog.AppendText(String.Format("{0}: {1}{2}{2}", timestamp, text, vbCrLf))
     End Sub
 
+
+    Private Sub EditItem(listItem As ListViewItem)
+        Dim itemId As Integer = listItem.Tag
+        EditResource.ShowDialog(itemId)
+        RefreshItems()
+    End Sub
 
     Private Sub RefreshItems()
 
@@ -124,4 +133,5 @@ Public Class Main
         ' Finally, remove the list item
         lstMonitoredItems.Items.Remove(listItem)
     End Sub
+
 End Class

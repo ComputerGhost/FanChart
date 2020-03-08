@@ -33,6 +33,7 @@ Partial Class Main
         Me.RunNowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.AddResourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -45,7 +46,6 @@ Partial Class Main
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtLog = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.EditSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -120,6 +120,12 @@ Partial Class Main
         Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
         Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AddResourceToolStripMenuItem.Text = "&Add Resource..."
+        '
+        'EditSelectedToolStripMenuItem
+        '
+        Me.EditSelectedToolStripMenuItem.Name = "EditSelectedToolStripMenuItem"
+        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EditSelectedToolStripMenuItem.Text = "&Edit Selected..."
         '
         'RemoveSelectedToolStripMenuItem
         '
@@ -224,12 +230,6 @@ Partial Class Main
         Me.SplitContainer1.SplitterDistance = 304
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 6
-        '
-        'EditSelectedToolStripMenuItem
-        '
-        Me.EditSelectedToolStripMenuItem.Name = "EditSelectedToolStripMenuItem"
-        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.EditSelectedToolStripMenuItem.Text = "&Edit Selected..."
         '
         'Main
         '
