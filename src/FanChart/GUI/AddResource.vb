@@ -80,8 +80,8 @@ Public Class AddResource
                 New MySqlParameter("propName", MySqlDbType.VarChar) With {.Value = propName},
                 New MySqlParameter("title", MySqlDbType.VarChar) With {.Value = title},
                 New MySqlParameter("url", MySqlDbType.VarChar) With {.Value = url},
-                New MySqlParameter("tags", MySqlDbType.VarChar) With {.Value = url},
-                New MySqlParameter("icons", MySqlDbType.VarChar) With {.Value = url},
+                New MySqlParameter("tags", MySqlDbType.VarChar) With {.Value = tags},
+                New MySqlParameter("icons", MySqlDbType.VarChar) With {.Value = icons},
                 New MySqlParameter("monitoredId", MySqlDbType.Int32) With {.Value = 0}})
 
             ' Get monitored item; insert if it doesn't exist
