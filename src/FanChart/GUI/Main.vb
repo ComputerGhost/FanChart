@@ -46,7 +46,9 @@ Public Class Main
 
     Private Sub RemoveSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveSelectedToolStripMenuItem.Click
         Dim removingItems As New List(Of ListViewItem)
-        removingItems.AddRange(lstMonitoredItems.SelectedItems)
+        For Each item In lstMonitoredItems.SelectedItems
+            removingItems.Add(item)
+        Next
         For Each item In removingItems
             RemoveItem(item)
         Next
