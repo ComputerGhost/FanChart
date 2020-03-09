@@ -10,6 +10,8 @@ Public Class AddResource
         txtURL.Select()
         txtTitle.Text = ""
         txtTitle.Enabled = False
+        txtTags.Text = ""
+        txtIcons.Text = ""
         btnLoad.Enabled = False
     End Sub
 
@@ -32,18 +34,18 @@ Public Class AddResource
             Case AssetUrlType.SpotifyAlbum
                 For Each track In Await New SpotifyAPI().GetAlbumPlayCountAsync(info.identifier)
                     Dim songId = String.Format("{0}:{1}:{2}", info.identifier, track.disc, track.number)
-                    AddItem("Spotify", "Song", songId, "Plays", track.name, track.uri)
+                    AddItem("Spotify", "Song", songId, "Plays", track.name, track.uri, txtTags.Text, txtIcons.Text)
                 Next
 
             Case AssetUrlType.TwitterAccount
-                AddItem("Twitter", "Account", info.identifier, "Followers", txtTitle.Text, txtURL.Text)
+                AddItem("Twitter", "Account", info.identifier, "Followers", txtTitle.Text, txtURL.Text, txtTags.Text, txtIcons.Text)
 
             Case AssetUrlType.YouTubeChannel
-                AddItem("YouTube", "Channel", info.identifier, "Subscribers", txtTitle.Text, txtURL.Text)
+                AddItem("YouTube", "Channel", info.identifier, "Subscribers", txtTitle.Text, txtURL.Text, txtTags.Text, txtIcons.Text)
 
             Case AssetUrlType.YouTubeVideo
-                AddItem("YouTube", "Video", info.identifier, "Views", txtTitle.Text, txtURL.Text)
-                AddItem("YouTube", "Video", info.identifier, "Likes", txtTitle.Text, txtURL.Text)
+                AddItem("YouTube", "Video", info.identifier, "Views", txtTitle.Text, txtURL.Text, txtTags.Text, txtIcons.Text)
+                AddItem("YouTube", "Video", info.identifier, "Likes", txtTitle.Text, txtURL.Text, txtTags.Text, txtIcons.Text)
 
         End Select
 
@@ -66,7 +68,7 @@ Public Class AddResource
     End Sub
 
 
-    Private Sub AddItem(site As String, type As String, theirId As String, propName As String, title As String, url As String)
+    Private Sub AddItem(site As String, type As String, theirId As String, propName As String, title As String, url As String, tags As String, icons As String)
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()
 
@@ -78,13 +80,15 @@ Public Class AddResource
                 New MySqlParameter("propName", MySqlDbType.VarChar) With {.Value = propName},
                 New MySqlParameter("title", MySqlDbType.VarChar) With {.Value = title},
                 New MySqlParameter("url", MySqlDbType.VarChar) With {.Value = url},
+                New MySqlParameter("tags", MySqlDbType.VarChar) With {.Value = url},
+                New MySqlParameter("icons", MySqlDbType.VarChar) With {.Value = url},
                 New MySqlParameter("monitoredId", MySqlDbType.Int32) With {.Value = 0}})
 
             ' Get monitored item; insert if it doesn't exist
             cmd.CommandText = "SELECT id FROM monitored_items WHERE site=@site AND type=@type AND their_id=@theirId"
             Dim monitoredId = cmd.ExecuteScalar()
             If monitoredId Is Nothing Then
-                cmd.CommandText = "INSERT INTO monitored_items (site,their_id,type,title,url) VALUES (@site,@theirId,@type,@title,@url);"
+                cmd.CommandText = "INSERT INTO monitored_items (site,their_id,type,title,url,tags,icons) VALUES (@site,@theirId,@type,@title,@url,@tags,@icons);"
                 cmd.ExecuteNonQuery()
                 monitoredId = cmd.LastInsertedId()
             End If

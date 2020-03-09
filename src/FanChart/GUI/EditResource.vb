@@ -9,7 +9,7 @@ Public Class EditResource
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()
             Dim cmd As New MySqlCommand(
-                "SELECT i.id, i.site, i.their_id, i.type, i.title, i.url
+                "SELECT i.id, i.site, i.their_id, i.type, i.title, i.url, i.tags, i.icons
                 FROM monitored_properties p LEFT JOIN monitored_items i ON i.id=p.monitored_id
                 WHERE p.id=@propertyId LIMIT 1", connection)
             cmd.Parameters.AddWithValue("propertyId", propertyId)
@@ -22,6 +22,8 @@ Public Class EditResource
             txtIdentifier.Text = dReader("their_id")
             txtTitle.Text = dReader("title")
             txtUrl.Text = dReader("url")
+            txtTags.Text = dReader("tags")
+            txtIcons.Text = dReader("icons")
 
         End Using
 
@@ -34,11 +36,13 @@ Public Class EditResource
             connection.Open()
 
             Dim cmd = connection.CreateCommand()
-            cmd.CommandText = "UPDATE monitored_items SET title=@title, url=@url WHERE id=@monitoredId"
+            cmd.CommandText = "UPDATE monitored_items SET title=@title, url=@url, tags=@tags, icons=@icons WHERE id=@monitoredId"
             cmd.Parameters.AddRange({
                 New MySqlParameter("monitoredId", MySqlDbType.Int32) With {.Value = monitoredId},
                 New MySqlParameter("title", MySqlDbType.VarChar) With {.Value = txtTitle.Text},
-                New MySqlParameter("url", MySqlDbType.VarChar) With {.Value = txtUrl.Text}})
+                New MySqlParameter("url", MySqlDbType.VarChar) With {.Value = txtUrl.Text},
+                New MySqlParameter("tags", MySqlDbType.VarChar) With {.Value = txtTags.Text},
+                New MySqlParameter("icons", MySqlDbType.VarChar) With {.Value = txtIcons.Text}})
             cmd.ExecuteNonQuery()
 
         End Using
