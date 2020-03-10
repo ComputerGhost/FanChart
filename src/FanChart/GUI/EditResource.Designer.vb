@@ -52,6 +52,7 @@ Partial Class EditResource
         Me.txtTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtTitle.Location = New System.Drawing.Point(48, 64)
+        Me.txtTitle.MaxLength = 100
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(324, 20)
         Me.txtTitle.TabIndex = 6

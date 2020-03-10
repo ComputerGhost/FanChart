@@ -118,7 +118,7 @@ Public Class Main
 
             ' We'll need this info after we delete the property
             cmd.CommandText = "SELECT monitored_id FROM monitored_properties WHERE id=@id"
-            Dim monitoredId = cmd.ExecuteNonQuery()
+            Dim monitoredId As Integer = cmd.ExecuteScalar()
 
             ' Delete the property
             cmd.CommandText =

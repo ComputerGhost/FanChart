@@ -48,7 +48,7 @@ Partial Class AddResource
         'txtTitle
         '
         Me.txtTitle.Location = New System.Drawing.Point(48, 38)
-        Me.txtTitle.MaxLength = 50
+        Me.txtTitle.MaxLength = 100
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(298, 20)
         Me.txtTitle.TabIndex = 2
