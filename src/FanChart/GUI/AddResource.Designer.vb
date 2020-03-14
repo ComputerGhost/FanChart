@@ -134,7 +134,7 @@ Partial Class AddResource
         Me.txtIcons.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtIcons.Location = New System.Drawing.Point(272, 64)
-        Me.txtIcons.MaxLength = 5
+        Me.txtIcons.MaxLength = 6
         Me.txtIcons.Name = "txtIcons"
         Me.txtIcons.Size = New System.Drawing.Size(100, 20)
         Me.txtIcons.TabIndex = 5
