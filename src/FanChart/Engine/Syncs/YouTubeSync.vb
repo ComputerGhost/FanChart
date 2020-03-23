@@ -42,8 +42,8 @@ Public Class YouTubeSync
             If response.Items.Count = 0 Then Continue For
 
             Dim stats = response.Items.First().Statistics
-            SaveUpdate(id.OurId, "Likes", stats.LikeCount)
-            SaveUpdate(id.OurId, "Views", stats.ViewCount)
+            SaveUpdate(id.OurId, "Likes", If(stats.LikeCount, 0))
+            SaveUpdate(id.OurId, "Views", If(stats.ViewCount, 0))
 
             Await Task.Delay(1000)
         Next
