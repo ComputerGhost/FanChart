@@ -5,6 +5,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class AddResource
 
+    Property propertyIds As New List(Of Integer)
+
     Private Sub AddResource_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtURL.Text = ""
         txtURL.Select()
@@ -100,6 +102,9 @@ Public Class AddResource
             If cmd.ExecuteScalar() > 0 Then Exit Sub
             cmd.CommandText = "INSERT INTO monitored_properties (monitored_id,property) VALUES (@monitoredid,@propName)"
             cmd.ExecuteNonQuery()
+
+            ' Add item to record of items added, for return
+            propertyIds.Add(cmd.LastInsertedId())
 
         End Using
     End Sub

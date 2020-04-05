@@ -1,6 +1,38 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports [Shared].ComponentModel.SortableBindingList
 
 Public Class Main
+
+    Public Structure RowItem
+        Property MonitoredId As Integer
+        Property PropertyId As Integer
+        Property Site As String
+        Property Type As String
+        Property TheirId As String
+        Property PropertyName As String
+        Property Title As String
+        Property Url As String
+    End Structure
+    Property RowItemBindingSource As SortableBindingList(Of RowItem)
+
+    Sub New()
+        InitializeComponent()
+
+        ' Additional form setup
+        RowItemBindingSource = New SortableBindingList(Of RowItem)
+        gvItems.AutoGenerateColumns = False
+        gvItems.DataSource = RowItemBindingSource
+        gvItems.Columns.AddRange(New DataGridViewColumn() {
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "PropertyId", .HeaderText = "Our Id", .Width = 70},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "Site", .HeaderText = "Site", .Width = 70},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "Type", .HeaderText = "Type", .Width = 60},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "TheirId", .HeaderText = "Their Id", .Width = 175},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "PropertyName", .HeaderText = "Property", .Width = 60},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "Title", .HeaderText = "Title", .AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill},
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "Url", .HeaderText = "Url", .Width = 125}
+        })
+
+    End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If String.IsNullOrEmpty(My.Settings.ConnectionString) Then
@@ -40,28 +72,27 @@ Public Class Main
 
     Private Sub AddResourceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddResourceToolStripMenuItem.Click
         If AddResource.ShowDialog() = DialogResult.OK Then
-            RefreshItems()
+            For Each propertyId In AddResource.propertyIds
+                RowItemBindingSource.Add(GetItemFromDB(propertyId))
+            Next
         End If
     End Sub
 
     Private Sub RemoveSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveSelectedToolStripMenuItem.Click
-        Dim removingItems As New List(Of ListViewItem)
-        For Each item In lstMonitoredItems.SelectedItems
-            removingItems.Add(item)
-        Next
-        For Each item In removingItems
-            RemoveItem(item)
+        For Each row As DataGridViewRow In gvItems.SelectedRows
+            RemoveItemFromDB(row.DataBoundItem.PropertyId)
+            RowItemBindingSource.Remove(row.DataBoundItem)
         Next
     End Sub
 
     Private Sub EditSelectedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditSelectedToolStripMenuItem.Click
-        If lstMonitoredItems.SelectedItems.Count = 0 Then Exit Sub
-        EditItem(lstMonitoredItems.SelectedItems(0))
+        If gvItems.SelectedRows.Count = 0 Then Exit Sub
+        EditItem(gvItems.SelectedRows(0).DataBoundItem.PropertyId)
     End Sub
 
-    Private Sub lstMonitoredItems_DoubleClick(sender As Object, e As EventArgs) Handles lstMonitoredItems.DoubleClick
-        If lstMonitoredItems.SelectedItems.Count = 0 Then Exit Sub
-        EditItem(lstMonitoredItems.SelectedItems(0))
+    Private Sub gvItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles gvItems.CellDoubleClick
+        If e.RowIndex < 0 Then Exit Sub
+        EditItem(gvItems.Rows(e.RowIndex).DataBoundItem.PropertyId)
     End Sub
 
 
@@ -70,51 +101,82 @@ Public Class Main
     End Sub
 
     Private Sub LogText(text As String)
-        Dim timestamp = Now.ToString("yyyy-MM-dd HH:mm:ss")
-        txtLog.AppendText(String.Format("{0}: {1}{2}{2}", timestamp, text, vbCrLf))
+        'Dim timestamp = Now.ToString("yyyy-MM-dd HH:mm:ss")
+        'txtLog.AppendText(String.Format("{0}: {1}{2}{2}", timestamp, text, vbCrLf))
     End Sub
 
 
-    Private Sub EditItem(listItem As ListViewItem)
-        Dim itemId As Integer = listItem.Tag
-        If EditResource.ShowDialog(itemId) = DialogResult.OK Then
-            RefreshItems()
+    Private Sub EditItem(propertyId As Integer)
+        If EditResource.ShowDialog(propertyId) = DialogResult.OK Then
+            For i = 0 To RowItemBindingSource.Count - 1
+                Dim item As RowItem = RowItemBindingSource(i)
+                If item.MonitoredId = EditResource.monitoredId Then
+                    RowItemBindingSource(i) = GetItemFromDB(item.PropertyId)
+                End If
+            Next
         End If
     End Sub
 
     Private Sub RefreshItems()
 
-        lstMonitoredItems.Items.Clear()
+        RowItemBindingSource.Clear()
 
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()
 
             Dim cmd As New MySqlCommand(
-                "SELECT p.id,i.site,i.type,i.their_id,p.property,i.title,i.url
+                "SELECT i.id`monitoredId`,p.id`propertyId`,i.site,i.type,i.their_id,p.property,i.title,i.url
                 FROM monitored_properties p LEFT JOIN monitored_items i ON i.id=p.monitored_id
-                ORDER BY i.site,i.type,i.title,p.property", connection)
+                ORDER BY i.id DESC", connection)
 
             Dim dReader = cmd.ExecuteReader()
             While dReader.Read()
-                Dim item = New ListViewItem({
-                    String.Format("{0}:{1}", dReader("site"), dReader("type")),
-                    dReader("their_id"),
-                    dReader("property"),
-                    dReader("title"),
-                    dReader("url")})
-                item.Tag = dReader("id")
-                lstMonitoredItems.Items.Add(item)
+                RowItemBindingSource.Add(New RowItem With {
+                    .MonitoredId = dReader("monitoredId"),
+                    .PropertyId = dReader("propertyId"),
+                    .Site = dReader("site"),
+                    .Type = dReader("type"),
+                    .TheirId = dReader("their_id"),
+                    .PropertyName = dReader("property"),
+                    .Title = dReader("title"),
+                    .Url = dReader("url")})
             End While
 
         End Using
+
     End Sub
 
-    Private Sub RemoveItem(listItem As ListViewItem)
+
+    Private Function GetItemFromDB(propertyId As Integer) As RowItem
+        Using connection As New MySqlConnection(My.Settings.ConnectionString)
+            connection.Open()
+            Dim cmd As New MySqlCommand(
+                "SELECT i.id`monitoredId`,p.id`propertyId`,i.site,i.type,i.their_id,p.property,i.title,i.url
+                FROM monitored_properties p LEFT JOIN monitored_items i ON i.id=p.monitored_id
+                WHERE p.id=@propertyId", connection)
+            cmd.Parameters.AddWithValue("propertyId", propertyId)
+
+            Dim dReader = cmd.ExecuteReader()
+            dReader.Read()
+
+            Return New RowItem With {
+                .MonitoredId = dReader("monitoredId"),
+                .PropertyId = dReader("propertyId"),
+                .Site = dReader("site"),
+                .Type = dReader("type"),
+                .TheirId = dReader("their_id"),
+                .PropertyName = dReader("property"),
+                .Title = dReader("title"),
+                .Url = dReader("url")}
+        End Using
+    End Function
+
+    Private Sub RemoveItemFromDB(propertyId As Integer)
         Using connection As New MySqlConnection(My.Settings.ConnectionString)
             connection.Open()
             Dim cmd As New MySqlCommand()
             cmd.Connection = connection
-            cmd.Parameters.Add("id", MySqlDbType.Int32).Value = listItem.Tag
+            cmd.Parameters.Add("id", MySqlDbType.Int32).Value = propertyId
 
             ' We'll need this info after we delete the property
             cmd.CommandText = "SELECT monitored_id FROM monitored_properties WHERE id=@id"
@@ -134,9 +196,6 @@ Public Class Main
                 cmd.ExecuteNonQuery()
             End If
         End Using
-
-        ' Finally, remove the list item
-        lstMonitoredItems.Items.Remove(listItem)
     End Sub
 
 End Class

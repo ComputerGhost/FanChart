@@ -37,24 +37,10 @@ Partial Class Main
         Me.RemoveSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.lstMonitoredItems = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txtLog = New System.Windows.Forms.TextBox()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.gvItems = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
+        CType(Me.gvItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -149,100 +135,26 @@ Partial Class Main
         Me.lblStatus.Size = New System.Drawing.Size(39, 17)
         Me.lblStatus.Text = "Ready"
         '
-        'lstMonitoredItems
+        'gvItems
         '
-        Me.lstMonitoredItems.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5})
-        Me.lstMonitoredItems.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lstMonitoredItems.FullRowSelect = True
-        Me.lstMonitoredItems.HideSelection = False
-        Me.lstMonitoredItems.Location = New System.Drawing.Point(3, 16)
-        Me.lstMonitoredItems.Name = "lstMonitoredItems"
-        Me.lstMonitoredItems.Size = New System.Drawing.Size(598, 459)
-        Me.lstMonitoredItems.TabIndex = 3
-        Me.lstMonitoredItems.UseCompatibleStateImageBehavior = False
-        Me.lstMonitoredItems.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader1
-        '
-        Me.ColumnHeader1.Text = "Site:Type"
-        Me.ColumnHeader1.Width = 100
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "Identifier"
-        Me.ColumnHeader2.Width = 180
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "Property"
-        Me.ColumnHeader3.Width = 100
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "Title"
-        Me.ColumnHeader4.Width = 400
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.lstMonitoredItems)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(604, 478)
-        Me.GroupBox1.TabIndex = 4
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Monitored Items:"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.txtLog)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(304, 478)
-        Me.GroupBox2.TabIndex = 5
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Recent Logs:"
-        '
-        'txtLog
-        '
-        Me.txtLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtLog.Location = New System.Drawing.Point(3, 16)
-        Me.txtLog.Multiline = True
-        Me.txtLog.Name = "txtLog"
-        Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtLog.Size = New System.Drawing.Size(298, 459)
-        Me.txtLog.TabIndex = 0
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 24)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox2)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(914, 478)
-        Me.SplitContainer1.SplitterDistance = 304
-        Me.SplitContainer1.SplitterWidth = 6
-        Me.SplitContainer1.TabIndex = 6
-        '
-        'ColumnHeader5
-        '
-        Me.ColumnHeader5.Text = "Url"
-        Me.ColumnHeader5.Width = 400
+        Me.gvItems.AllowUserToAddRows = False
+        Me.gvItems.AllowUserToDeleteRows = False
+        Me.gvItems.AllowUserToResizeRows = False
+        Me.gvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.gvItems.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gvItems.Location = New System.Drawing.Point(0, 24)
+        Me.gvItems.Name = "gvItems"
+        Me.gvItems.ReadOnly = True
+        Me.gvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.gvItems.Size = New System.Drawing.Size(914, 478)
+        Me.gvItems.TabIndex = 3
         '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 524)
-        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.gvItems)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -253,13 +165,7 @@ Partial Class Main
         Me.MenuStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.gvItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -272,15 +178,6 @@ Partial Class Main
     Friend WithEvents RunNowToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents lblStatus As ToolStripStatusLabel
-    Friend WithEvents lstMonitoredItems As ListView
-    Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ColumnHeader2 As ColumnHeader
-    Friend WithEvents ColumnHeader4 As ColumnHeader
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents txtLog As TextBox
-    Friend WithEvents ColumnHeader3 As ColumnHeader
-    Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AccountsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IdolsToolStripMenuItem As ToolStripMenuItem
@@ -288,5 +185,5 @@ Partial Class Main
     Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RemoveSelectedToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EditSelectedToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ColumnHeader5 As ColumnHeader
+    Friend WithEvents gvItems As DataGridView
 End Class
