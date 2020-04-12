@@ -28,7 +28,8 @@ Partial Class Main
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.IdolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MilestonesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RunNowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
@@ -38,6 +39,7 @@ Partial Class Main
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.gvItems = New System.Windows.Forms.DataGridView()
+        Me.ImportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.gvItems, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,62 +64,69 @@ Partial Class Main
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(93, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'SettingsToolStripMenuItem
         '
-        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.IdolsToolStripMenuItem})
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.MilestonesToolStripMenuItem})
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
         Me.SettingsToolStripMenuItem.Text = "&Settings"
         '
         'AccountsToolStripMenuItem
         '
         Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
-        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AccountsToolStripMenuItem.Text = "&Accounts..."
         '
-        'IdolsToolStripMenuItem
+        'MilestonesToolStripMenuItem
         '
-        Me.IdolsToolStripMenuItem.Name = "IdolsToolStripMenuItem"
-        Me.IdolsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
-        Me.IdolsToolStripMenuItem.Text = "&Idols..."
+        Me.MilestonesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImportToolStripMenuItem, Me.ExportToolStripMenuItem})
+        Me.MilestonesToolStripMenuItem.Name = "MilestonesToolStripMenuItem"
+        Me.MilestonesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.MilestonesToolStripMenuItem.Text = "&Milestones"
+        '
+        'ExportToolStripMenuItem
+        '
+        Me.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem"
+        Me.ExportToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExportToolStripMenuItem.Text = "&Export..."
         '
         'SyncToolStripMenuItem
         '
         Me.SyncToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunNowToolStripMenuItem, Me.ToolStripSeparator2, Me.AddResourceToolStripMenuItem, Me.EditSelectedToolStripMenuItem, Me.RemoveSelectedToolStripMenuItem})
         Me.SyncToolStripMenuItem.Name = "SyncToolStripMenuItem"
-        Me.SyncToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.SyncToolStripMenuItem.Size = New System.Drawing.Size(45, 20)
         Me.SyncToolStripMenuItem.Text = "&Sync"
         '
         'RunNowToolStripMenuItem
         '
         Me.RunNowToolStripMenuItem.Name = "RunNowToolStripMenuItem"
-        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.RunNowToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.RunNowToolStripMenuItem.Text = "&Run Now"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(163, 6)
         '
         'AddResourceToolStripMenuItem
         '
         Me.AddResourceToolStripMenuItem.Name = "AddResourceToolStripMenuItem"
-        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.AddResourceToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.AddResourceToolStripMenuItem.Text = "&Add Resource..."
         '
         'EditSelectedToolStripMenuItem
         '
         Me.EditSelectedToolStripMenuItem.Name = "EditSelectedToolStripMenuItem"
-        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.EditSelectedToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.EditSelectedToolStripMenuItem.Text = "&Edit Selected..."
         '
         'RemoveSelectedToolStripMenuItem
         '
         Me.RemoveSelectedToolStripMenuItem.Name = "RemoveSelectedToolStripMenuItem"
-        Me.RemoveSelectedToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.RemoveSelectedToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.RemoveSelectedToolStripMenuItem.Text = "Remove Selected"
         '
         'StatusStrip1
@@ -148,6 +157,12 @@ Partial Class Main
         Me.gvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.gvItems.Size = New System.Drawing.Size(914, 478)
         Me.gvItems.TabIndex = 3
+        '
+        'ImportToolStripMenuItem
+        '
+        Me.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem"
+        Me.ImportToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ImportToolStripMenuItem.Text = "Import..."
         '
         'Main
         '
@@ -180,10 +195,12 @@ Partial Class Main
     Friend WithEvents lblStatus As ToolStripStatusLabel
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AccountsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents IdolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents AddResourceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RemoveSelectedToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EditSelectedToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents gvItems As DataGridView
+    Friend WithEvents MilestonesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ImportToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -69,6 +69,9 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Csv, Version=1.0.53.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Csv.1.0.53\lib\net40\Csv.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.42.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.42.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -87,6 +90,7 @@
     <Reference Include="Google.Apis.YouTube.v3, Version=1.42.0.1758, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.YouTube.v3.1.42.0.1758\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySqlConnector, Version=0.61.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.0.61.0\lib\net471\MySqlConnector.dll</HintPath>
     </Reference>
@@ -154,6 +158,18 @@
     <Compile Include="GUI\EditAccounts.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GUI\ExportMilestones.Designer.vb">
+      <DependentUpon>ExportMilestones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ExportMilestones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ImportMilestones.Designer.vb">
+      <DependentUpon>ImportMilestones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ImportMilestones.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\EditResource.Designer.vb">
       <DependentUpon>EditResource.vb</DependentUpon>
     </Compile>
@@ -195,6 +211,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\EditAccounts.resx">
       <DependentUpon>EditAccounts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ExportMilestones.resx">
+      <DependentUpon>ExportMilestones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ImportMilestones.resx">
+      <DependentUpon>ImportMilestones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\EditResource.resx">
       <DependentUpon>EditResource.vb</DependentUpon>

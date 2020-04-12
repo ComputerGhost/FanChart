@@ -70,6 +70,14 @@ Public Class Main
         EditAccounts.ShowDialog()
     End Sub
 
+    Private Sub ImportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImportToolStripMenuItem.Click
+        ImportMilestones.ShowDialog()
+    End Sub
+
+    Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
+        ExportMilestones.ShowDialog()
+    End Sub
+
     Private Sub AddResourceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddResourceToolStripMenuItem.Click
         If AddResource.ShowDialog() = DialogResult.OK Then
             For Each propertyId In AddResource.propertyIds
