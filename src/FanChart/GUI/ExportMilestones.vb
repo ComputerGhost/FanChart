@@ -4,6 +4,11 @@ Imports MySql.Data.MySqlClient
 
 Public Class ExportMilestones
 
+    Private Sub ExportMilestones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ddlSiteProperty.SelectedIndex = -1
+        txtFilename.Text = ""
+    End Sub
+
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         dlgSave.ShowDialog()
         txtFilename.Text = dlgSave.FileName

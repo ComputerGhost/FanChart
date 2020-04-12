@@ -13,6 +13,11 @@ Public Class ImportMilestones
     End Structure
     Property RowItems As List(Of RowItem)
 
+    Private Sub ImportMilestones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ddlSiteProperty.SelectedIndex = -1
+        txtFilename.Text = ""
+    End Sub
+
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         dlgOpen.ShowDialog()
         txtFilename.Text = dlgOpen.FileName
