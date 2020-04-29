@@ -25,7 +25,7 @@ Public Class MilestoneNotice
 
     Private Function FormatNumber(number As Integer) As String
         Dim nfi As NumberFormatInfo = CultureInfo.InvariantCulture.NumberFormat.Clone()
-        nfi.NumberGroupSeparator = " "
+        nfi.NumberGroupSeparator = ","
         Return number.ToString("N0", nfi)
     End Function
 
