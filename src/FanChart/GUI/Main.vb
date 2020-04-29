@@ -29,7 +29,7 @@ Public Class Main
             New DataGridViewTextBoxColumn With {.DataPropertyName = "TheirId", .HeaderText = "Their Id", .Width = 175},
             New DataGridViewTextBoxColumn With {.DataPropertyName = "PropertyName", .HeaderText = "Property", .Width = 60},
             New DataGridViewTextBoxColumn With {.DataPropertyName = "Title", .HeaderText = "Title", .AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill},
-            New DataGridViewTextBoxColumn With {.DataPropertyName = "Url", .HeaderText = "Url", .Width = 125}
+            New DataGridViewTextBoxColumn With {.DataPropertyName = "Url", .HeaderText = "Url", .AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill}
         })
 
     End Sub
@@ -105,7 +105,9 @@ Public Class Main
 
 
     Private Sub LogException(moduleName As String, ex As Exception)
-        LogText(String.Format("Error in `{0}`: {1}{2}Stacktrace: {3}", moduleName, ex.Message, vbCrLf, ex.StackTrace))
+        Dim message = String.Format("Error in `{0}`: {1}{2}Stacktrace: {3}", moduleName, ex.Message, vbCrLf, ex.StackTrace)
+        MessageBox.Show(message, "Error")
+        LogText(message)
     End Sub
 
     Private Sub LogText(text As String)
